@@ -314,7 +314,7 @@ class ShakeCommand extends Command
      *
      * @return self
      */
-    protected function setInput(InputInterface $input)
+    public function setInput(InputInterface $input)
     {
         $this->input = $input;
 
@@ -338,7 +338,7 @@ class ShakeCommand extends Command
      *
      * @return self
      */
-    protected function setOutput(OutputInterface $output)
+    public function setOutput(OutputInterface $output)
     {
         $this->output = $output;
 

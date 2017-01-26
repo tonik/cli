@@ -8,20 +8,6 @@ use Symfony\Component\Console\Input\InputOption;
 class CLI
 {
     /**
-     * Console application instance.
-     *
-     * @var \Symfony\Component\Console\Application
-     */
-    protected $app;
-
-    /**
-     * The directory where the CLI is running.
-     *
-     * @var string
-     */
-    protected $dir;
-
-    /**
      * List of commands to register.
      *
      * @var array
@@ -52,5 +38,15 @@ class CLI
         }
 
         return $app->run();
+    }
+
+    /**
+     * Gets the List of commands to register.
+     *
+     * @return array
+     */
+    public function getCommands()
+    {
+        return $this->commands;
     }
 }
