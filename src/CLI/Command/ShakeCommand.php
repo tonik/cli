@@ -36,7 +36,7 @@ class ShakeCommand extends Command
      */
     protected $ignore = [
         "node_modules",
-        "vendor"
+        "vendor",
     ];
 
     /**
