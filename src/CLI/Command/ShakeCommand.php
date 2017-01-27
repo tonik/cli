@@ -10,6 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Finder\Finder;
+use Tonik\CLI\Shake\Renamer;
 
 class ShakeCommand extends Command
 {
@@ -27,16 +28,6 @@ class ShakeCommand extends Command
         'theme.author.uri' => '<comment>Author URI</comment> [<info>theme.author.uri</info>]',
         'theme.textdomain' => '<comment>Theme Textdomain</comment> [<info>theme.textdomain</info>]',
         'theme.namespace' => '<comment>Theme Namespace</comment> [<info>theme.namespace</info>]',
-    ];
-
-    /**
-     * Directories to ignore on files finding.
-     *
-     * @var array
-     */
-    protected $ignore = [
-        "node_modules",
-        "vendor",
     ];
 
     /**
@@ -176,33 +167,17 @@ class ShakeCommand extends Command
      */
     protected function rename()
     {
-        $finder = new Finder();
+        $finder = new Finder;
+        $renamer = new Renamer($finder);
+        $progress = new ProgressBar($this->getOutput(), count($renamer->files()));
 
-        $finder->files()
-            ->name('*.php')
-            ->name('*.css')
-            ->name('*.json')
-            ->exclude($this->ignore)
-            ->in($this->getInput()->getOption('directory'));
-
-        $progress = new ProgressBar($this->getOutput(), count($finder));
+        $dir = $this->getInput()->getOption('directory');
 
         $progress->setFormat("[%bar%] %current%/%max% files\n");
 
-        foreach ($finder as $file) {
-            foreach ($this->answers as $key => $answer) {
-                if ($file->getExtension() !== 'json') {
-                    $answer = stripslashes($answer);
-                }
-
-                file_put_contents(
-                    $file->getRealPath(),
-                    str_replace("{{ {$key} }}", $answer, $file->getContents())
-                );
-            }
-
+        $renamer->init($dir, $this->answers, function () {
             $progress->advance();
-        }
+        });
 
         $progress->finish();
 
