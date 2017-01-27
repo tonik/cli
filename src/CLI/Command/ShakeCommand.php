@@ -185,35 +185,6 @@ class ShakeCommand extends Command
     }
 
     /**
-     * Finds and replaces string for all files in directory.
-     *
-     * @param  string $where
-     * @param  string $search
-     * @param  string $replace
-     *
-     * @return void
-     */
-    private function findAndReplaceInDir($where, $search, $replace)
-    {
-        exec("find {$where} -type f \( -name \*.php -o -name \*.css -o -name \*.json \) -exec \
-            sed -i '' 's/{$search}/{$replace}/g' {} +");
-    }
-
-    /**
-     * Finds and replaces string in file.
-     *
-     * @param  string $where
-     * @param  string $search
-     * @param  string $replace
-     *
-     * @return void
-     */
-    private function findAndReplaceInFile($where, $search, $replace)
-    {
-        exec("sed -i '' 's/{$search}/{$replace}/g' {$where}");
-    }
-
-    /**
      * Gets the List of theme details entries.
      *
      * @return array
