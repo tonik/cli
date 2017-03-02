@@ -1,12 +1,12 @@
 {
     "name": "tonik/cli",
-    "description": "CLI for tonik/gin WordPress Starter Theme.",
+    "description": "CLI for Tonik WordPress Starter Theme.",
     "keywords": ["tonik", "gin", "wordpress", "cli"],
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.6",
-        "symfony/console": "~2.3|~3.0",
-        "symfony/finder": "~2.3|~3.0"
+        "symfony/finder": "~2.3|~3.0",
+        "league/climate": "^3.2"
     },
     "require-dev": {
         "mockery/mockery": "~1.0.0",
