@@ -15,9 +15,7 @@
         "php-mock/php-mock-phpunit": "^1.1"
     },
     "autoload": {
-        "exclude-from-classmap": ["/tests/"]
-    },
-    "autoload-dev": {
+        "exclude-from-classmap": ["/tests/"],
         "psr-4": {
             "Tonik\\CLI\\": "src/CLI/"
         }

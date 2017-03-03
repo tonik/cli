@@ -3,7 +3,6 @@
 namespace Tonik\CLI;
 
 use League\CLImate\CLImate;
-use Symfony\Component\Finder\Finder;
 use Tonik\CLI\Command\Shake;
 
 class CLI
