@@ -27,13 +27,19 @@ class ShakeTest extends PHPUnit_Framework_TestCase
         $this->testDir = "{$this->fixturesDir}/test";
         $this->tempDir = "{$this->fixturesDir}/temp";
 
-        exec("cp -R $this->testDir $this->tempDir");
+        $test = escapeshellarg($this->testDir);
+        $temp = escapeshellarg($this->tempDir);
+
+        exec("cp -R $test $temp");
     }
 
     protected function tearDown()
     {
-        exec("rm -rf $this->testDir");
-        exec("mv $this->tempDir $this->testDir");
+        $test = escapeshellarg($this->testDir);
+        $temp = escapeshellarg($this->tempDir);
+
+        exec("rm -rf $test");
+        exec("mv $temp $test");
     }
 
     /**
