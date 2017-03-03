@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'textdomain' => 'tonik'
+    'textdomain' => '{{ theme.textdomain }}'
 ];

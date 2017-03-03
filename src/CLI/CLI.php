@@ -20,13 +20,13 @@ class CLI
      * @var array
      */
     protected $questions = [
-        'Tonik Theme' => '<comment>Theme Name</comment> [<info>Tonik Theme</info>]',
-        'https://github.com/tonik/tonik' => '<comment>Theme URI</comment> [<info>https://github.com/tonik/tonik</info>]',
-        'Modern Starter Theme' => '<comment>Theme Description</comment> [<info>Modern Starter Theme</info>]',
-        '2.0.0' => '<comment>Theme Version</comment> [<info>2.0.0</info>]',
-        'Tonik' => '<comment>Author</comment> [<info>Tonik</info>]',
-        'http://tonik.pl' => '<comment>Author URI</comment> [<info>http://tonik.pl</info>]',
-        'tonik' => '<comment>Theme Textdomain</comment> [<info>tonik</info>]',
+        '{{ theme.name }}' => '<comment>Theme Name</comment> [<info>{{ theme.name }}</info>]',
+        '{{ theme.url }}' => '<comment>Theme URI</comment> [<info>{{ theme.url }}</info>]',
+        '{{ theme.description }}' => '<comment>Theme Description</comment> [<info>{{ theme.description }}</info>]',
+        '{{ theme.version }}' => '<comment>Theme Version</comment> [<info>{{ theme.version }}</info>]',
+        '{{ theme.author }}' => '<comment>Author</comment> [<info>{{ theme.author }}</info>]',
+        '{{ theme.author.url }}' => '<comment>Author URI</comment> [<info>{{ theme.author.url }}</info>]',
+        '{{ theme.textdomain }}' => '<comment>Theme Textdomain</comment> [<info>{{ theme.textdomain }}</info>]',
         'App\Theme' => '<comment>Theme Namespace</comment> [<info>App\Theme</info>]',
     ];
 

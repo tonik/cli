@@ -5,13 +5,13 @@ use Tonik\CLI\CLI;
 class CLITest extends PHPUnit_Framework_TestCase
 {
     protected $inputs = [
-        'Tonik Theme' => 'Theme Name',
-        'https://github.com/tonik/tonik' => 'Theme Website',
-        'Modern Starter Theme' => 'Theme Description',
-        '2.0.0' => 'Theme Version',
-        'Tonik' => 'Author',
-        'http://tonik.pl' => 'Author Website',
-        'tonik' => 'Theme Textdomain',
+        '{{ theme.name }}' => 'Theme Name',
+        '{{ theme.url }}' => 'Theme Website',
+        '{{ theme.description }}' => 'Theme Description',
+        '{{ theme.version }}' => 'Theme Version',
+        '{{ theme.author }}' => 'Author',
+        '{{ theme.author.url }}' => 'Author Website',
+        '{{ theme.textdomain }}' => 'Theme Textdomain',
         'App\Theme' => 'Theme\New\Namespace',
     ];
 

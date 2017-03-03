@@ -11,13 +11,13 @@ class ShakeTest extends PHPUnit_Framework_TestCase
     private $testDir;
     private $tempDir;
     protected $answers = [
-        'Tonik Theme' => 'Theme Name',
-        'https://github.com/tonik/tonik' => 'Theme URI',
-        'Modern Starter Theme' => 'Theme Description',
-        '2.0.0' => 'Theme Version',
-        'Tonik' => 'Author',
-        'http://tonik.pl' => 'Author Website',
-        'tonik' => 'Theme Textdomain',
+        '{{ theme.name }}' => 'Theme Name',
+        '{{ theme.url }}' => 'Theme URI',
+        '{{ theme.description }}' => 'Theme Description',
+        '{{ theme.version }}' => 'Theme Version',
+        '{{ theme.author }}' => 'Author',
+        '{{ theme.author.url }}' => 'Author Website',
+        '{{ theme.textdomain }}' => 'Theme Textdomain',
         'App\Theme' => 'My\\\\New\\\\Theme',
     ];
 
