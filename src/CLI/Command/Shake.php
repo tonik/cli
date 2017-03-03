@@ -8,6 +8,11 @@ use Tonik\CLI\Services\Renamer;
 
 class Shake
 {
+    /**
+     * Directory path where shaking will proceed.
+     *
+     * @var string
+     */
     protected $dir;
 
     /**
@@ -41,11 +46,23 @@ class Shake
         'composer.lock'
     ];
 
+    /**
+     * Construct shake command.
+     *
+     * @param \Symfony\Component\Finder\Finder $finder
+     */
     public function __construct(Finder $finder)
     {
         $this->finder = $finder;
     }
 
+    /**
+     * Process renaming in files content.
+     *
+     * @param  array  $answers
+     *
+     * @return void
+     */
     public function rename(array $answers)
     {
         foreach ($this->files() as $index => $file) {
@@ -55,6 +72,11 @@ class Shake
         }
     }
 
+    /**
+     * Finds files to rename.
+     *
+     * @return array
+     */
     public function files()
     {
         $files = $this->finder->files();

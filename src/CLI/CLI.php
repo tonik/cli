@@ -37,6 +37,8 @@ class CLI
      * @param \League\CLImate\CLImate $climate
      */
     public function __construct(CLImate $climate) {
+        $this->climate = $climate;
+
         $climate->arguments->add([
             'help' => [
                 'prefix' => 'h',
@@ -45,8 +47,6 @@ class CLI
                 'noValue' => true,
             ],
         ]);
-
-        $this->climate = $climate;
     }
 
     /**
@@ -58,8 +58,7 @@ class CLI
      */
     public function run(Shake $shake)
     {
-        $this->climate->addArt(__DIR__.'/art');
-        $this->climate->draw('tonik');
+        $this->drawBanner();
 
         $this->climate->arguments->parse();
 
@@ -67,6 +66,35 @@ class CLI
             return $this->climate->usage();
         }
 
+        $this->askQuestions();
+
+        if ($this->askForConfirmation()) {
+            $shake->rename($this->answers);
+
+            $this->climate->out('<success>Done.</success>');
+        } else {
+            $this->climate->whisper('Shaking abored.');
+        }
+    }
+
+    /**
+     * Draws CLI banner.
+     *
+     * @return void
+     */
+    public function drawBanner()
+    {
+        $this->climate->addArt(__DIR__.'/art');
+        $this->climate->draw('tonik');
+    }
+
+    /**
+     * Asks questions and saves answers.
+     *
+     * @return void
+     */
+    public function askQuestions()
+    {
         foreach ($this->questions as $placeholder => $message) {
             $input = $this->climate->input($message);
 
@@ -74,16 +102,18 @@ class CLI
 
             $this->answers[$placeholder] = $input->prompt();
         }
+    }
 
+    /**
+     * Asks for confirmation for finalizing process.
+     *
+     * @return boolean
+     */
+    public function askForConfirmation()
+    {
         $input = $this->climate->confirm('Continue?');
 
-        if ($input->confirmed()) {
-            $shake->rename($this->answers);
-
-            $this->climate->out('<success>Done.</success>');
-        } else {
-            $this->climate->whisper('Shaking abored.');
-        }
+        return $input->confirmed();
     }
 
     /**
