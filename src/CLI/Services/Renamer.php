@@ -18,6 +18,10 @@ class Renamer
 
     public function replace($replace, $to)
     {
+        if ($this->file->getExtension() === 'json') {
+            $replace = addslashes($replace);
+        }
+
         file_put_contents(
             $this->file->getRealPath(),
             str_replace($replace, $to, $this->file->getContents())

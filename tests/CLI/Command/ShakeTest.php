@@ -10,12 +10,6 @@ class ShakeTest extends PHPUnit_Framework_TestCase
     private $fixturesDir;
     private $testDir;
     private $tempDir;
-
-    /**
-     * List of questions.
-     *
-     * @var array
-     */
     protected $answers = [
         'Tonik Theme' => 'Theme Name',
         'https://github.com/tonik/tonik' => 'Theme URI',
@@ -24,7 +18,7 @@ class ShakeTest extends PHPUnit_Framework_TestCase
         'Tonik' => 'Author',
         'http://tonik.pl' => 'Author Website',
         'tonik' => 'Theme Textdomain',
-        'App\Theme' => 'Theme Namespace',
+        'App\Theme' => 'My\\\\New\\\\Theme',
     ];
 
     protected function setUp()
@@ -42,19 +36,29 @@ class ShakeTest extends PHPUnit_Framework_TestCase
         exec("mv $this->tempDir $this->testDir");
     }
 
-    function test_command()
+    /**
+     * @test
+     */
+    public function test_shaking_a_theme()
     {
         $shake = (new Shake(new Finder))->dir($this->testDir);
 
         $shake->rename($this->answers);
 
-        $this->assertEquals('Theme Name
-Theme URI
-Theme Description
-Theme Version
-Author
-Author Website
-Theme Textdomain
-Theme Namespace', file_get_contents("$this->testDir/replace.php"));
+        $this->assertContains('My\New\Theme\Rest\Of\Namespace', file_get_contents("$this->testDir/namespace.php"));
+        $this->assertContains('My\\\\New\\\\Theme\\\\Rest\\\\Of\\\\Namespace', file_get_contents("$this->testDir/namespace.json"));
+
+        $this->assertContains("add_action('init', 'My\New\Theme\Rest\Of\Namespace');", file_get_contents("$this->testDir/hooks.php"));
+        $this->assertContains("add_filter('excerpt', 'My\New\Theme\Rest\Of\Namespace');", file_get_contents("$this->testDir/hooks.php"));
+
+        $this->assertContains("'textdomain' => 'Theme Textdomain'", file_get_contents("$this->testDir/config.php"));
+
+        $this->assertContains('Theme Name: Theme Name', file_get_contents("$this->testDir/style.css"));
+        $this->assertContains('Theme URI: Theme URI', file_get_contents("$this->testDir/style.css"));
+        $this->assertContains('Description: Theme Description', file_get_contents("$this->testDir/style.css"));
+        $this->assertContains('Version: Theme Version', file_get_contents("$this->testDir/style.css"));
+        $this->assertContains('Author: Author', file_get_contents("$this->testDir/style.css"));
+        $this->assertContains('Author URI: Author Website', file_get_contents("$this->testDir/style.css"));
+        $this->assertContains('Text Domain: Theme Textdomain', file_get_contents("$this->testDir/style.css"));
     }
 }

@@ -15,9 +15,30 @@ class Shake
      *
      * @var array
      */
-    protected $ignore = [
-        "node_modules",
-        "vendor",
+    protected $ignoredDirectories = [
+        'node_modules',
+        'vendor',
+    ];
+
+    /**
+     * Files to ignore on searching.
+     *
+     * @var array
+     */
+    protected $searchedFiles = [
+        '*.php',
+        '*.css',
+        '*.json',
+    ];
+
+    /**
+     * Files to ignore on searching.
+     *
+     * @var array
+     */
+    protected $ignoredFiles = [
+        'composer.json',
+        'composer.lock'
     ];
 
     public function __construct(Finder $finder)
@@ -36,12 +57,17 @@ class Shake
 
     public function files()
     {
-        return $this->finder->files()
-            ->name('*.php')
-            ->name('*.css')
-            ->name('*.json')
-            ->exclude($this->ignore)
-            ->in($this->dir);
+        $files = $this->finder->files();
+
+        foreach ($this->ignoredFiles as $name) {
+            $files->notName($name);
+        }
+
+        foreach ($this->searchedFiles as $name) {
+            $files->name($name);
+        }
+
+        return $files->exclude($this->ignoredDirectories)->in($this->dir);
     }
 
     /**
