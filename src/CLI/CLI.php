@@ -20,13 +20,13 @@ class CLI
      * @var array
      */
     protected $questions = [
-        '{{ theme.name }}' => '<comment>Theme Name</comment> [<info>{{ theme.name }}</info>]',
-        '{{ theme.url }}' => '<comment>Theme URI</comment> [<info>{{ theme.url }}</info>]',
-        '{{ theme.description }}' => '<comment>Theme Description</comment> [<info>{{ theme.description }}</info>]',
-        '{{ theme.version }}' => '<comment>Theme Version</comment> [<info>{{ theme.version }}</info>]',
-        '{{ theme.author }}' => '<comment>Author</comment> [<info>{{ theme.author }}</info>]',
-        '{{ theme.author.url }}' => '<comment>Author URI</comment> [<info>{{ theme.author.url }}</info>]',
-        '{{ theme.textdomain }}' => '<comment>Theme Textdomain</comment> [<info>{{ theme.textdomain }}</info>]',
+        '{{ theme.name }}' => '<comment>Theme Name</comment> [<info>theme.name</info>]',
+        '{{ theme.url }}' => '<comment>Theme URI</comment> [<info>theme.url</info>]',
+        '{{ theme.description }}' => '<comment>Theme Description</comment> [<info>theme.description</info>]',
+        '{{ theme.version }}' => '<comment>Theme Version</comment> [<info>theme.version</info>]',
+        '{{ theme.author }}' => '<comment>Author</comment> [<info>theme.author</info>]',
+        '{{ theme.author.url }}' => '<comment>Author URI</comment> [<info>theme.author.url</info>]',
+        '{{ theme.textdomain }}' => '<comment>Theme Textdomain</comment> [<info>theme.textdomain</info>]',
         'App\Theme' => '<comment>Theme Namespace</comment> [<info>App\Theme</info>]',
     ];
 
