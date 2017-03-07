@@ -2,7 +2,7 @@
     "name": "tonik/cli",
     "description": "CLI for Tonik WordPress Starter Theme.",
     "keywords": ["tonik", "gin", "wordpress", "cli"],
-    "license": "GPL-2.0+",
+    "license": "MIT",
     "require": {
         "php": ">=5.6",
         "league/climate": "^3.2",
