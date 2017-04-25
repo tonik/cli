@@ -20,5 +20,8 @@
             "Tonik\\CLI\\": "src/CLI/"
         }
     },
+    "bin": [
+        "tonik"
+    ],
     "minimum-stability": "dev"
 }
