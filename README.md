@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.org/tonik/cli.svg?branch=master)](https://travis-ci.org/tonik/cli) [![Coverage Status](https://coveralls.io/repos/github/tonik/cli/badge.svg?branch=master)](https://coveralls.io/github/tonik/cli?branch=master)
