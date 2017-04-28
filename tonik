@@ -8,7 +8,7 @@ if (file_exists($composer = __DIR__ . '/../../autoload.php')) {
 
     $shake = new Tonik\CLI\Command\Shake(new Symfony\Component\Finder\Finder);
 
-    return $cli->run($shake->dir(__DIR__));
+    return $cli->run($shake->dir(dirname(dirname(dirname(__DIR__)))));
 }
 
 throw new Exception("Please, install composer dependences before running CLI.");
