@@ -1,6 +1,6 @@
 # Tonik — CLI
 
-[![Build Status](https://travis-ci.org/tonik/cli.svg?branch=master)](https://travis-ci.org/tonik/cli) [![Coverage Status](https://coveralls.io/repos/github/tonik/cli/badge.svg?branch=master)](https://coveralls.io/github/tonik/cli?branch=master)
+[![Build Status](https://travis-ci.org/tonik/cli.svg?branch=develop)](https://travis-ci.org/tonik/cli) [![Coverage Status](https://coveralls.io/repos/github/tonik/cli/badge.svg?branch=develop)](https://coveralls.io/github/tonik/cli?branch=develop)
 
 ### Simple CLI for initiating themes based on [Tonik WordPress Starter Theme](https://github.com/tonik/tonik).
 
