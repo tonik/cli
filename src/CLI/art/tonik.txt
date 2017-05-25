@@ -1,13 +1,15 @@
-88888888888  d88888b  888b    8888888888888    d8P        d8888b  888     8888888
-    888    d88P   Y88b8888b   888  888  888   d8P       d88P  Y88b888       888
-    888    888     88888888b  888  888  888  d8P        888    888888       888
-    888    888     888888Y88b 888  888  888d88K         888       888       888
-    888    888     888888 Y88b888  888  8888888b        888       888       888
-    888    888     888888  Y88888  888  888  Y88b       8888    888888       888
-    888    Y88b   d88P888   Y8888  888  888   Y88b      Y88b  d88P888       888
-    888      Y88888P  888    Y8888888888888    Y88b        Y8888P 888888888888888
 
-_________________________________________________________________________________
+-------------------------------------------------------------------------------------
+
+<info>ooooooooooo   ooooooo  oooo   oooo ooooo oooo   oooo      oooooooo  ooooo       ooooo</info>
+<info>88  888  88 o888   888o 8888o  88   888   888  o88      o888     88  888         888 </info>
+<info>    888     888     888 88 888o88   888   888888        888          888         888 </info>
+<info>    888     888o   o888 88   8888   888   888  88o      888o     oo  888      o  888 </info>
+<info>   o888o      88ooo88  o88o    88  o888o o888o o888o     888oooo88  o888ooooo88 o888o</info>
+
+-------------------------------------------------------------------------------------
 
 You are about to initialize a project based on Tonik Starter Theme.
 This setup wizard will guide you through the entire process.
+
+Defaults are presented inside [brackets]. Leave answer empty if you want to default value.
