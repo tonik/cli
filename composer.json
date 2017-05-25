@@ -6,7 +6,7 @@
     "require": {
         "php": ">=7.1",
         "league/climate": "^3.2",
-        "symfony/finder": "^2.0"
+        "symfony/finder": "~2.3|~3.0"
     },
     "require-dev": {
         "mockery/mockery": "~1.0.0",
