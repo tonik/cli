@@ -4,7 +4,7 @@
     "keywords": ["tonik", "gin", "wordpress", "cli"],
     "license": "MIT",
     "require": {
-        "php": ">=5.6",
+        "php": ">=7.1",
         "league/climate": "^3.2",
         "symfony/finder": "^2.0"
     },

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f584423c2a702adf07c30931e98b5599",
-    "content-hash": "ad75399b9c82d4a2bc84a0ad714863c9",
+    "hash": "8d0873e91b91e07c7bc59a2b302b3a82",
+    "content-hash": "563614e7e7eaa935090767187bcfd65d",
     "packages": [
         {
             "name": "league/climate",
@@ -2351,7 +2351,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6"
+        "php": ">=7.1"
     },
     "platform-dev": []
 }
