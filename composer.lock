@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0a1e12e7639ec7033788a8de45b59476",
-    "content-hash": "d5330b87f3e77a50ff6086bc780f1342",
+    "hash": "f584423c2a702adf07c30931e98b5599",
+    "content-hash": "ad75399b9c82d4a2bc84a0ad714863c9",
     "packages": [
         {
             "name": "league/climate",
@@ -108,25 +108,25 @@
         },
         {
             "name": "symfony/finder",
-            "version": "3.4.x-dev",
+            "version": "2.8.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "a10477bbf888f386db9c3ae460b1ada68bc397f4"
+                "reference": "16d55394b31547e4a8494551b85c9b9915545347"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/a10477bbf888f386db9c3ae460b1ada68bc397f4",
-                "reference": "a10477bbf888f386db9c3ae460b1ada68bc397f4",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/16d55394b31547e4a8494551b85c9b9915545347",
+                "reference": "16d55394b31547e4a8494551b85c9b9915545347",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.9"
+                "php": ">=5.3.9"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.4-dev"
+                    "dev-master": "2.8-dev"
                 }
             },
             "autoload": {
@@ -153,7 +153,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2017-05-21 17:11:47"
+            "time": "2017-04-12 14:07:15"
         }
     ],
     "packages-dev": [
