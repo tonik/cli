@@ -1,15 +1,16 @@
 
 -------------------------------------------------------------------------------------
 
-<info>ooooooooooo   ooooooo  oooo   oooo ooooo oooo   oooo      oooooooo  ooooo       ooooo</info>
-<info>88  888  88 o888   888o 8888o  88   888   888  o88      o888     88  888         888 </info>
-<info>    888     888     888 88 888o88   888   888888        888          888         888 </info>
-<info>    888     888o   o888 88   8888   888   888  88o      888o     oo  888      o  888 </info>
-<info>   o888o      88ooo88  o88o    88  o888o o888o o888o     888oooo88  o888ooooo88 o888o</info>
+<comment>ooooooooooo   ooooooo  oooo   oooo ooooo oooo   oooo      oooooooo  ooooo       ooooo</comment>
+<comment>88  888  88 o888   888o 8888o  88   888   888  o88      o888     88  888         888 </comment>
+<comment>    888     888     888 88 888o88   888   888888        888          888         888 </comment>
+<comment>    888     888o   o888 88   8888   888   888  88o      888o     oo  888      o  888 </comment>
+<comment>   o888o      88ooo88  o88o    88  o888o o888o o888o     888oooo88  o888ooooo88 o888o</comment>
 
 -------------------------------------------------------------------------------------
 
-You are about to initialize a project based on Tonik Starter Theme.
-This setup wizard will guide you through the entire process.
+You are about to initialize a project based on Tonik Starter Theme. This setup wizard
+will guide you through the entire process.
 
-Defaults are presented inside [brackets]. Leave answer empty if you want to default value.
+You will be asked for some details about your theme. Questions default answers are
+presented inside [<info>brackets</info>]. Leave answer empty if you want to use the default value.
