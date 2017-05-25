@@ -1,3 +1,3 @@
 <?php
 
-namespace App\Theme\Rest\Of\Namespace;
+namespace App\Theme\Rest\Of\Name;

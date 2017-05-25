@@ -51,11 +51,11 @@ class ShakeTest extends PHPUnit_Framework_TestCase
 
         $shake->rename($this->answers);
 
-        $this->assertContains('My\New\Theme\Rest\Of\Namespace', file_get_contents("$this->testDir/namespace.php"));
-        $this->assertContains('My\\\\New\\\\Theme\\\\Rest\\\\Of\\\\Namespace', file_get_contents("$this->testDir/namespace.json"));
+        $this->assertContains('My\New\Theme\Rest\Of\Name', file_get_contents("$this->testDir/namespace.php"));
+        $this->assertContains('My\\\\New\\\\Theme\\\\Rest\\\\Of\\\\Name', file_get_contents("$this->testDir/namespace.json"));
 
-        $this->assertContains("add_action('init', 'My\New\Theme\Rest\Of\Namespace');", file_get_contents("$this->testDir/hooks.php"));
-        $this->assertContains("add_filter('excerpt', 'My\New\Theme\Rest\Of\Namespace');", file_get_contents("$this->testDir/hooks.php"));
+        $this->assertContains("add_action('init', 'My\New\Theme\Rest\Of\Name');", file_get_contents("$this->testDir/hooks.php"));
+        $this->assertContains("add_filter('excerpt', 'My\New\Theme\Rest\Of\Name');", file_get_contents("$this->testDir/hooks.php"));
 
         $this->assertContains("'textdomain' => 'Theme Textdomain'", file_get_contents("$this->testDir/config.php"));
 
