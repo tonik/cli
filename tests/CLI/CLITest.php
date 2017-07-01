@@ -69,7 +69,7 @@ class CLITest extends PHPUnit_Framework_TestCase
     {
         $input = Mockery::mock('League\CLImate\TerminalObject\Dynamic\Input');
 
-        $this->climate->shouldReceive('confirm')->once()->with('Continue?')->andReturn($input);
+        $this->climate->shouldReceive('confirm')->once()->with(Mockery::any())->andReturn($input);
 
         $input->shouldReceive('confirmed')->once()->withNoArgs()->andReturn(true);
         $this->assertTrue($this->cli->askForConfirmation());
@@ -82,7 +82,7 @@ class CLITest extends PHPUnit_Framework_TestCase
     {
         $input = Mockery::mock('League\CLImate\TerminalObject\Dynamic\Input');
 
-        $this->climate->shouldReceive('confirm')->once()->with('Continue?')->andReturn($input);
+        $this->climate->shouldReceive('confirm')->once()->with(Mockery::any())->andReturn($input);
 
         $input->shouldReceive('confirmed')->once()->withNoArgs()->andReturn(false);
         $this->assertFalse($this->cli->askForConfirmation());
@@ -119,7 +119,7 @@ class CLITest extends PHPUnit_Framework_TestCase
         $this->test_asking_for_a_confrimation_with_true_input();
 
         $shake->shouldReceive('rename')->once();
-        $this->climate->shouldReceive('out')->with('<success>Done.</success>');
+        $this->climate->shouldReceive('backgroundLightGreen')->with(Mockery::any());
 
         $this->cli->run($shake);
     }
@@ -139,7 +139,7 @@ class CLITest extends PHPUnit_Framework_TestCase
         $this->test_asking_for_a_confrimation_with_false_input();
 
         $shake->shouldReceive('rename')->never();
-        $this->climate->shouldReceive('whisper')->with('Shaking abored.');
+        $this->climate->shouldReceive('backgroundRed')->with(Mockery::any());
 
         $this->cli->run($shake);
     }

@@ -70,9 +70,9 @@ class CLI
         if ($this->askForConfirmation()) {
             $shake->rename($this->answers);
 
-            $this->climate->out('<success>Done.</success>');
+            $this->climate->backgroundLightGreen('Done. Cheers!');
         } else {
-            $this->climate->whisper('Shaking abored.');
+            $this->climate->backgroundRed('Shaking abored.');
         }
     }
 
