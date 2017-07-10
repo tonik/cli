@@ -1,13 +1,12 @@
 
--------------------------------------------------------------------------------------
+<comment>-------------------------------------------------------------------------------------</comment>
 
-<comment>ooooooooooo   ooooooo  oooo   oooo ooooo oooo   oooo      oooooooo  ooooo       ooooo</comment>
-<comment>88  888  88 o888   888o 8888o  88   888   888  o88      o888     88  888         888 </comment>
-<comment>    888     888     888 88 888o88   888   888888        888          888         888 </comment>
-<comment>    888     888o   o888 88   8888   888   888  88o      888o     oo  888      o  888 </comment>
-<comment>   o888o      88ooo88  o88o    88  o888o o888o o888o     888oooo88  o888ooooo88 o888o</comment>
+   <comment>_______  ______   ______  _____  _    __    ______  _       _____    <blink> ______</blink></comment>
+   <comment>  | |   / |  | \ | |  \ \  | |  | |  / /   | |     | |       | |     <blink>|      |</blink></comment>
+   <comment>  | |   | |  | | | |  | |  | |  | |-< <    | |     | |   _   | |     <blink>|      |</blink></comment>
+   <comment>  |_|   \_|__|_/ |_|  |_| _|_|_ |_|  \_\   |_|____ |_|__|_| _|_|_    <blink>|______|</blink></comment>
 
--------------------------------------------------------------------------------------
+<comment>-------------------------------------------------------------------------------------</comment>
 
 You are about to initialize a project based on Tonik Starter Theme. This setup wizard
 will guide you through the entire process.
