@@ -1,12 +1,11 @@
 <?php
 
-namespace Tonik\CLI\Command;
+namespace Tonik\CLI\Renaming;
 
 use Closure;
 use Symfony\Component\Finder\Finder;
-use Tonik\CLI\Services\Renamer;
 
-class Shake
+class Renamer
 {
     /**
      * Directory path where shaking will proceed.
@@ -47,13 +46,13 @@ class Shake
     ];
 
     /**
-     * Construct shake command.
+     * Construct shaker.
      *
-     * @param \Symfony\Component\Finder\Finder $finder
+     * @param string $dir
      */
-    public function __construct(Finder $finder)
+    public function __construct($dir)
     {
-        $this->finder = $finder;
+        $this->dir = $dir;
     }
 
     /**
@@ -63,12 +62,10 @@ class Shake
      *
      * @return void
      */
-    public function rename(array $answers)
+    public function replace(array $replacements)
     {
-        foreach ($this->files() as $index => $file) {
-            $renamer = new Renamer($file);
-
-            $renamer->init($answers);
+        foreach ($this->files() as $file) {
+            (new Replacer($file))->swap($replacements);
         }
     }
 
@@ -79,7 +76,7 @@ class Shake
      */
     public function files()
     {
-        $files = $this->finder->files();
+        $files = (new Finder)->files();
 
         foreach ($this->ignoredFiles as $name) {
             $files->notName($name);
@@ -90,19 +87,5 @@ class Shake
         }
 
         return $files->exclude($this->ignoredDirectories)->in($this->dir);
-    }
-
-    /**
-     * Sets the value of dir.
-     *
-     * @param mixed $dir the dir
-     *
-     * @return self
-     */
-    public function dir($dir)
-    {
-        $this->dir = $dir;
-
-        return $this;
     }
 }

@@ -1,8 +1,10 @@
 <?php
 
-namespace Tonik\CLI\Services;
+namespace Tonik\CLI\Renaming;
 
-class Renamer
+use Symfony\Component\Finder\SplFileInfo;
+
+class Replacer
 {
     /**
      * File instance.
@@ -16,7 +18,7 @@ class Renamer
      *
      * @param \Symfony\Component\Finder\SplFileInfo $file
      */
-    function __construct($file)
+    function __construct(SplFileInfo $file)
     {
         $this->file = $file;
     }
@@ -24,50 +26,50 @@ class Renamer
     /**
      * Inits renaming process.
      *
-     * @param  array $values  Values map to replace.
+     * @param  array $replacements  Values map to replace.
      *
      * @return void
      */
-    public function init(array $values)
+    public function swap(array $replacements)
     {
-        foreach ($values as $replace => $to) {
-            $this->replace($replace, $this->normalize($to));
+        foreach ($replacements as $from => $to) {
+            $this->replace($from, $this->normalize($to));
         }
     }
 
     /**
      * Replaces strings in file content.
      *
-     * @param  string $replace
+     * @param  string $from
      * @param  string $to
      *
      * @return void
      */
-    protected function replace($replace, $to)
+    protected function replace($from, $to)
     {
         if ($this->file->getExtension() === 'json') {
-            $replace = addslashes($replace);
+            $from = addslashes($from);
         }
 
         file_put_contents(
             $this->file->getRealPath(),
-            str_replace($replace, $to, $this->file->getContents())
+            str_replace($from, $to, $this->file->getContents())
         );
     }
 
     /**
-     * Normalizes answer.
+     * Normalizes replacement.
      *
      * @param  string $string
      *
      * @return string
      */
-    protected function normalize($answer)
+    protected function normalize($replacement)
     {
         if ($this->file->getExtension() !== 'json') {
-            $answer = stripslashes($answer);
+            $replacement = stripslashes($replacement);
         }
 
-        return $answer;
+        return $replacement;
     }
 }

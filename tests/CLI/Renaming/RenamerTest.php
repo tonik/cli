@@ -4,6 +4,7 @@ use League\CLImate\CLImate;
 use Symfony\Component\Finder\Finder;
 use Tonik\CLI\CLI;
 use Tonik\CLI\Command\Shake;
+use Tonik\CLI\Renaming\Renamer;
 
 class ShakeTest extends PHPUnit_Framework_TestCase
 {
@@ -47,9 +48,7 @@ class ShakeTest extends PHPUnit_Framework_TestCase
      */
     public function test_shaking_a_theme()
     {
-        $shake = (new Shake(new Finder))->dir($this->testDir);
-
-        $shake->rename($this->answers);
+        (new Renamer($this->testDir))->replace($this->answers);
 
         $this->assertContains('My\New\Theme\Rest\Of\Name', file_get_contents("$this->testDir/namespace.php"));
         $this->assertContains('My\\\\New\\\\Theme\\\\Rest\\\\Of\\\\Name', file_get_contents("$this->testDir/namespace.json"));

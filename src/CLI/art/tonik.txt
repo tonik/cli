@@ -1,15 +1,14 @@
 
-<comment>-------------------------------------------------------------------------------------</comment>
+<comment>-----------------------------------------------------------------</comment>
+<comment>_______  ______   ______  _____  _    __    ______  _       _____</comment>
+<comment>  | |   / |  | \ | |  \ \  | |  | |  / /   | |     | |       | | </comment>
+<comment>  | |   | |  | | | |  | |  | |  | |-< <    | |     | |   _   | | </comment>
+<comment>  |_|   \_|__|_/ |_|  |_| _|_|_ |_|  \_\   |_|____ |_|__|_| _|_|_</comment>
+<comment>_________________________________________________________________</comment>
 
-   <comment>_______  ______   ______  _____  _    __    ______  _       _____    <blink> ______</blink></comment>
-   <comment>  | |   / |  | \ | |  \ \  | |  | |  / /   | |     | |       | |     <blink>|      |</blink></comment>
-   <comment>  | |   | |  | | | |  | |  | |  | |-< <    | |     | |   _   | |     <blink>|      |</blink></comment>
-   <comment>  |_|   \_|__|_/ |_|  |_| _|_|_ |_|  \_\   |_|____ |_|__|_| _|_|_    <blink>|______|</blink></comment>
+<info>You are about to initialize a project based on Tonik Starter Theme.</info>
+<info>This setup wizard will guide you through the entire process.</info>
 
-<comment>-------------------------------------------------------------------------------------</comment>
-
-You are about to initialize a project based on Tonik Starter Theme. This setup wizard
-will guide you through the entire process.
-
-You will be asked for some details about your theme. Questions default answers are
-presented inside [<info>brackets</info>]. Leave answer empty if you want to use the default value.
+<info>You will be asked for some details about your theme. Default answers</info>
+<info>for questions are presented inside</info> [brackets]<info>.</info>
+<info>Leave answer empty if you want to use the default value.</info>

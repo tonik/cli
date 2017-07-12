@@ -1,10 +1,12 @@
 <?php
 
 use Tonik\CLI\CLI;
+use Tonik\CLI\Renaming\Placeholders;
+use Tonik\CLI\Scaffolding\Scaffolder;
 
 class CLITest extends PHPUnit_Framework_TestCase
 {
-    protected $inputs = [
+    protected $answers = [
         '{{ theme.name }}' => 'Theme Name',
         '{{ theme.url }}' => 'Theme Website',
         '{{ theme.description }}' => 'Theme Description',
@@ -17,20 +19,23 @@ class CLITest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        parent::setUp();
+
         $this->climate = Mockery::mock('League\CLImate\CLImate');
-        $this->arguments = Mockery::mock('League\CLImate\Argument\Manager');
-
-        $this->arguments->shouldReceive('add')->with([
-            'help' => [
-                'prefix' => 'h',
-                'longPrefix' => 'help',
-                'description' => 'Shake command help guide',
-                'noValue' => true,
-            ],
-        ])->once();
-
-        $this->climate->arguments = $this->arguments;
+        $this->input = Mockery::mock('League\CLImate\TerminalObject\Dynamic\Input');
         $this->cli = new CLI($this->climate);
+    }
+
+    public function tearDown()
+    {
+        parent::tearDown();
+        Mockery::close();
+    }
+
+    public function draw_a_banner()
+    {
+        $this->climate->shouldReceive('addArt')->once();
+        $this->climate->shouldReceive('draw')->once()->with('tonik');
     }
 
     /**
@@ -38,70 +43,83 @@ class CLITest extends PHPUnit_Framework_TestCase
      */
     public function test_drawing_a_banner()
     {
-        $this->climate->shouldReceive('addArt')->once();
-        $this->climate->shouldReceive('draw')->once()->with('tonik');
+        $this->draw_a_banner();
 
         $this->cli->drawBanner();
     }
 
-    /**
-     * @test
-     */
-    public function test_asking_a_questions()
+    public function ask_for_replacements()
     {
-        $input = Mockery::mock('League\CLImate\TerminalObject\Dynamic\Input');
-
-        foreach ($this->cli->getQuestions() as $placeholder => $message) {
-            $this->climate->shouldReceive('input')->once()->with($message)->andReturn($input);
-            $input->shouldReceive('defaultTo')->once()->with($placeholder)->andReturn($input);
-            $input->shouldReceive('prompt')->once()->withNoArgs()->andReturn($this->inputs[$placeholder]);
+        foreach (Placeholders::REPLACEMENTS as $placeholder => $replacement) {
+            $this->climate->shouldReceive('input')->once()->with($replacement['message'])->andReturn($this->input);
+            $this->input->shouldReceive('defaultTo')->once()->with($replacement['value'])->andReturn($this->input);
+            $this->input->shouldReceive('prompt')->once()->withNoArgs()->andReturn($this->answers[$placeholder]);
         }
-
-        $this->cli->askQuestions();
-
-        $this->assertEquals($this->inputs, $this->cli->getAnswers());
     }
 
     /**
      * @test
      */
-    public function test_asking_for_a_confrimation_with_true_input()
+    public function test_asking_for_replacements()
     {
-        $input = Mockery::mock('League\CLImate\TerminalObject\Dynamic\Input');
+        $this->ask_for_replacements();
 
-        $this->climate->shouldReceive('confirm')->once()->with(Mockery::any())->andReturn($input);
+        $replacements = $this->cli->askForReplacements();
 
-        $input->shouldReceive('confirmed')->once()->withNoArgs()->andReturn(true);
+        foreach ($this->answers as $input => $value) {
+            $this->assertEquals($value, $replacements[$input]['value']);
+        }
+    }
+
+    public function ask_for_preset()
+    {
+        $this->climate->shouldReceive('input')->once()->andReturn($this->input);
+        $this->input->shouldReceive('accept')->once()->with(Scaffolder::PRESETS, true)->andReturn($this->input);
+        $this->input->shouldReceive('prompt')->once()->withNoArgs()->andReturn('preset');
+    }
+
+    /**
+     * @test
+     */
+    public function test_asking_for_preset()
+    {
+        $this->ask_for_preset();
+
+        $preset = $this->cli->askForPreset();
+
+        $this->assertEquals('preset', $preset);
+    }
+
+    public function ask_for_a_confirmation_with_true_answer()
+    {
+        $this->climate->shouldReceive('confirm')->once()->andReturn($this->input);
+        $this->input->shouldReceive('confirmed')->once()->withNoArgs()->andReturn(true);
+    }
+
+    /**
+     * @test
+     */
+    public function test_asking_for_a_confirmation_with_true_answer()
+    {
+        $this->ask_for_a_confirmation_with_true_answer();
+
         $this->assertTrue($this->cli->askForConfirmation());
     }
 
-    /**
-     * @test
-     */
-    public function test_asking_for_a_confrimation_with_false_input()
+    public function ask_for_a_confirmation_with_false_answer()
     {
-        $input = Mockery::mock('League\CLImate\TerminalObject\Dynamic\Input');
-
-        $this->climate->shouldReceive('confirm')->once()->with(Mockery::any())->andReturn($input);
-
-        $input->shouldReceive('confirmed')->once()->withNoArgs()->andReturn(false);
-        $this->assertFalse($this->cli->askForConfirmation());
+        $this->climate->shouldReceive('confirm')->once()->andReturn($this->input);
+        $this->input->shouldReceive('confirmed')->once()->withNoArgs()->andReturn(false);
     }
 
     /**
      * @test
      */
-    public function test_execution_run_with_help_argument()
+    public function test_asking_for_a_confirmation_with_false_answer()
     {
-        $shake = Mockery::mock('Tonik\CLI\Command\Shake');
+        $this->ask_for_a_confirmation_with_false_answer();
 
-        $this->test_drawing_a_banner();
-
-        $this->arguments->shouldReceive('parse')->once()->withNoArgs();
-        $this->arguments->shouldReceive('defined')->once()->with('help')->andReturn(true);
-        $this->climate->shouldReceive('usage')->once()->withNoArgs();
-
-        $this->cli->run($shake);
+        $this->assertFalse($this->cli->askForConfirmation());
     }
 
     /**
@@ -109,19 +127,20 @@ class CLITest extends PHPUnit_Framework_TestCase
      */
     public function test_proper_execution_run()
     {
-        $shake = Mockery::mock('Tonik\CLI\Command\Shake');
+        $renamer = Mockery::mock('Tonik\CLI\Renaming\Renamer');
+        $scaffolder = Mockery::mock('Tonik\CLI\Scaffolding\Scaffolder');
 
-        $this->arguments->shouldReceive('parse')->once()->withNoArgs();
-        $this->arguments->shouldReceive('defined')->once()->with('help')->andReturn(false);
+        $this->draw_a_banner();
+        $this->ask_for_replacements();
+        $this->ask_for_preset();
+        $this->ask_for_a_confirmation_with_true_answer();
 
-        $this->test_drawing_a_banner();
-        $this->test_asking_a_questions();
-        $this->test_asking_for_a_confrimation_with_true_input();
+        $this->climate->shouldReceive('backgroundLightGreen');
 
-        $shake->shouldReceive('rename')->once();
-        $this->climate->shouldReceive('backgroundLightGreen')->with(Mockery::any());
+        $renamer->shouldReceive('replace')->once();
+        $scaffolder->shouldReceive('build')->once();
 
-        $this->cli->run($shake);
+        $this->cli->run($renamer, $scaffolder);
     }
 
     /**
@@ -129,18 +148,19 @@ class CLITest extends PHPUnit_Framework_TestCase
      */
     public function test_abored_execution_run()
     {
-        $shake = Mockery::mock('Tonik\CLI\Command\Shake');
+        $renamer = Mockery::mock('Tonik\CLI\Renaming\Renamer');
+        $scaffolder = Mockery::mock('Tonik\CLI\Scaffolding\Scaffolder');
 
-        $this->arguments->shouldReceive('parse')->once()->withNoArgs();
-        $this->arguments->shouldReceive('defined')->once()->with('help')->andReturn(false);
+        $this->draw_a_banner();
+        $this->ask_for_replacements();
+        $this->ask_for_preset();
+        $this->ask_for_a_confirmation_with_false_answer();
 
-        $this->test_drawing_a_banner();
-        $this->test_asking_a_questions();
-        $this->test_asking_for_a_confrimation_with_false_input();
+        $this->climate->shouldReceive('backgroundRed');
 
-        $shake->shouldReceive('rename')->never();
-        $this->climate->shouldReceive('backgroundRed')->with(Mockery::any());
+        $renamer->shouldReceive('replace')->never();
+        $scaffolder->shouldReceive('build')->never();
 
-        $this->cli->run($shake);
+        $this->cli->run($renamer, $scaffolder);
     }
 }
