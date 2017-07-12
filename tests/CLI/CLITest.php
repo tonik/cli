@@ -50,9 +50,9 @@ class CLITest extends PHPUnit_Framework_TestCase
 
     public function ask_for_replacements()
     {
-        foreach (Placeholders::REPLACEMENTS as $placeholder => $replacement) {
-            $this->climate->shouldReceive('input')->once()->with($replacement['message'])->andReturn($this->input);
-            $this->input->shouldReceive('defaultTo')->once()->with($replacement['value'])->andReturn($this->input);
+        foreach ($this->cli->placeholders as $placeholder => $data) {
+            $this->climate->shouldReceive('input')->once()->with($data['message'])->andReturn($this->input);
+            $this->input->shouldReceive('defaultTo')->once()->with($data['value'])->andReturn($this->input);
             $this->input->shouldReceive('prompt')->once()->withNoArgs()->andReturn($this->answers[$placeholder]);
         }
     }
@@ -67,14 +67,14 @@ class CLITest extends PHPUnit_Framework_TestCase
         $replacements = $this->cli->askForReplacements();
 
         foreach ($this->answers as $input => $value) {
-            $this->assertEquals($value, $replacements[$input]['value']);
+            $this->assertEquals($value, $replacements[$input]);
         }
     }
 
     public function ask_for_preset()
     {
         $this->climate->shouldReceive('input')->once()->andReturn($this->input);
-        $this->input->shouldReceive('accept')->once()->with(Scaffolder::PRESETS, true)->andReturn($this->input);
+        $this->input->shouldReceive('accept')->once()->with($this->cli->presets, true)->andReturn($this->input);
         $this->input->shouldReceive('prompt')->once()->withNoArgs()->andReturn('preset');
     }
 

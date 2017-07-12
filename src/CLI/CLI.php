@@ -9,6 +9,43 @@ use Tonik\CLI\Scaffolding\Scaffolder;
 
 class CLI
 {
+    public $placeholders = [
+        '{{ theme.name }}' => [
+            'value' => 'Tonik Starter Theme',
+            'message' => '<comment>Theme Name</comment> [Tonik Starter Theme]',
+        ],
+        '{{ theme.url }}' => [
+            'value' => '//labs.tonik.pl/theme/',
+            'message' => '<comment>Theme URI</comment> [//labs.tonik.pl/theme/]',
+        ],
+        '{{ theme.description }}' => [
+            'value' => 'Enhance your WordPress theme development workflow',
+            'message' => '<comment>Theme Description</comment> [Enhance your WordPress theme development workflow]',
+        ],
+        '{{ theme.version }}' => [
+            'value' => '2.0.0',
+            'message' => '<comment>Theme Version</comment> [2.0.0]',
+        ],
+        '{{ theme.author }}' => [
+            'value' => 'Tonik',
+            'message' => '<comment>Author</comment> [Tonik]',
+        ],
+        '{{ theme.author.url }}' => [
+            'value' => '//tonik.pl/',
+            'message' => '<comment>Author URI</comment> [//tonik.pl/]',
+        ],
+        '{{ theme.textdomain }}' => [
+            'value' => 'tonik',
+            'message' => '<comment>Theme Textdomain</comment> [tonik]',
+        ],
+        'App\Theme' => [
+            'value' => 'App\Theme',
+            'message' => '<comment>Theme Namespace</comment> [App\Theme]',
+        ],
+    ];
+
+    public $presets = ['foundation', 'bootstrap', 'none'];
+
     /**
      * Construct CLI.
      *
@@ -32,11 +69,11 @@ class CLI
         $this->drawBanner();
 
         $replacements = $this->askForReplacements();
-        $preset = $this->askForPreset();
+        $presset = $this->askForPreset();
 
         if ($this->askForConfirmation()) {
             $renamer->replace($replacements);
-            $scaffolder->build($preset);
+            $scaffolder->build($presset);
 
             $this->climate->backgroundLightGreen('Done. Cheers!');
         } else {
@@ -64,24 +101,22 @@ class CLI
     {
         $replacements = [];
 
-        foreach (Placeholders::REPLACEMENTS as $placeholder => $replacement) {
-            $input = $this->climate->input($replacement['message']);
+        foreach ($this->placeholders as $placeholder => $data) {
+            $input = $this->climate->input($data['message']);
 
-            $input->defaultTo($replacement['value']);
+            $input->defaultTo($data['value']);
 
-            $replacement['value'] = $input->prompt();
-
-            $placeholders[$placeholder] = $replacement;
+            $replacements[$placeholder] = $input->prompt();
         }
 
-        return $placeholders;
+        return $replacements;
     }
 
     public function askForPreset()
     {
         $input = $this->climate->input('<comment>Choose the front-end scaffolding</comment>');
 
-        $input->accept(Scaffolder::PRESETS, true);
+        $input->accept($this->presets, true);
 
         return strtolower($input->prompt());
     }

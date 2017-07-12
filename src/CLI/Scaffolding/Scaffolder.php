@@ -6,8 +6,6 @@ use League\CLImate\CLImate;
 
 class Scaffolder
 {
-    const PRESETS = ['foundation', 'bootstrap', 'none'];
-
     /**
      * Construct scaffolder.
      *
