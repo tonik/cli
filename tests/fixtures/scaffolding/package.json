@@ -1,3 +1,6 @@
 {
-  "dependencies": {}
+    "dependencies": {
+        "foundation-sites": "^6.3.0",
+        "motion-ui": "^1.2.0"
+    }
 }

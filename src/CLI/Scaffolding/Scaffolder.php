@@ -17,18 +17,24 @@ class Scaffolder
         $this->dir = $dir;
     }
 
+    /**
+     * Build boilerplate of specified preset.
+     *
+     * @param  string $preset
+     * @return void
+     */
     public function build($preset)
     {
-        return $this->{$preset}();
+        $this->{$preset}();
     }
 
+    /**
+     * Scaffolds boilerplate for `Foundation.css`.
+     *
+     * @return void
+     */
     protected function foundation()
     {
-        return (new Foundation($this->dir))->scaffold();
-    }
-
-    protected function none()
-    {
-        //
+        (new Foundation($this->dir))->scaffold();
     }
 }

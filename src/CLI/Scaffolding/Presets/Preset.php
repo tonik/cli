@@ -5,92 +5,76 @@ namespace Tonik\CLI\Scaffolding\Presets;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Tonik\CLI\Renaming\Replacer;
+use Tonik\CLI\Scaffolding\AssetsRenamer;
+use Tonik\CLI\Scaffolding\FilesCloner;
+use Tonik\CLI\Scaffolding\PackagesAdder;
 
 abstract class Preset implements PresetInterface
 {
+    /**
+     * Saffolding directory path.
+     *
+     * @var string
+     */
     protected $dir;
 
+    /**
+     * Construct preset.
+     *
+     * @param string $dir
+     */
     public function __construct($dir)
     {
         $this->dir = $dir;
-    }
-
-    protected function updateSass()
-    {
-        $this->mirror("{$this->stubDir(static::$name)}/sass", $this->sassDir());
-    }
-
-    protected function updateJavascript()
-    {
-        $this->mirror("{$this->stubDir(static::$name)}/js", $this->javascriptDir());
+        $this->stubsDir = __DIR__ . '/stubs';
     }
 
     /**
-     * Update the "package.json" file.
+     * Replaces project sass files with boilerplate's stubs.
+     *
+     * @param  string $stub
+     * @return void
+     */
+    protected function updateSass($stub)
+    {
+        $source = "{$this->stubsDir}/{$stub}/sass";
+        $desctination = "{$this->dir}/resources/assets/sass";
+
+        (new FilesCloner($source))->clone($desctination);
+    }
+
+    /**
+     * Replaces project javascripts files with boilerplate's stubs.
+     *
+     * @param  string $stub
+     * @return void
+     */
+    protected function updateJavascript($stub)
+    {
+        $source = "{$this->stubsDir}/{$stub}/js";
+        $desctination = "{$this->dir}/resources/assets/js";
+
+        (new FilesCloner($source))->clone($desctination);
+    }
+
+    /**
+     * Update the "package.json" file with additional dependencies.
      *
      * @return void
      */
-    protected function updatePackages()
+    protected function updatePackages($dependencies)
     {
-        if (! file_exists("{$this->dir}/package.json")) {
-            return;
-        }
-
-        $packages = json_decode(file_get_contents("{$this->dir}/package.json"), true);
-
-        $packages['dependencies'] = $this->packages($packages['dependencies']);
-
-        ksort($packages['dependencies']);
-
-        file_put_contents(
-            "{$this->dir}/package.json",
-            json_encode($packages, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT).PHP_EOL
-        );
+        (new PackagesAdder("{$this->dir}/package.json"))->add($dependencies);
     }
 
-    protected function updateAssets($replacements)
+    /**
+     * Update arguments of enqueue functions to new ones.
+     *
+     * @param  array $replacements
+     * @return void
+     */
+    protected function updateAssets(array $replacements)
     {
-        $files = (new Finder)->files()
-            ->name("assets.php")
-            ->in("{$this->dir}/app/Http");
-
-        foreach ($files as $file) {
-            (new Replacer($file))->swap($replacements);
-        }
-    }
-
-    protected function mirror($source, $target)
-    {
-        $fs = new Filesystem;
-
-        if (! $fs->exists($target)) {
-            $fs->mkdir($target, 0755);
-        }
-
-        $fs->mirror($source, $target, null, [
-            'override' => true,
-            'delete' => true,
-        ]);
-    }
-
-
-    public function stubsDir()
-    {
-        return __DIR__."/stubs";
-    }
-
-    public function stubDir($name)
-    {
-        return __DIR__."/stubs/{$name}";
-    }
-
-    public function javascriptDir()
-    {
-        return "{$this->dir}/resources/assets/js";
-    }
-
-    public function sassDir()
-    {
-        return "{$this->dir}/resources/assets/sass";
+        (new AssetsRenamer($this->dir))->replace($replacements);
     }
 }

@@ -25,7 +25,7 @@ class Renamer
     ];
 
     /**
-     * Files to ignore on searching.
+     * Files to search.
      *
      * @var array
      */

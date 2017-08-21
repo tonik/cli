@@ -6,27 +6,26 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class Foundation extends Preset
 {
-    public static $name = 'foundation';
-
-    public function scaffold()
-    {
-        $this->updateSass();
-        $this->updateJavascript();
-        $this->updatePackages();
-        $this->updateAssets(['vendor' => 'foundation']);
-    }
+    /**
+     * Preset name.
+     *
+     * @var string
+     */
+    private $name = 'foundation';
 
     /**
-     * Update the given package array with preset dependences.
+     * Scaffold a `foundation` boilerplate preset.
      *
-     * @param  array  $packages
-     * @return array
+     * @return void
      */
-    protected function packages(array $packages)
+    public function scaffold()
     {
-        return [
+        $this->updatePackages([
             'foundation-sites' => '^6.3.0',
             'motion-ui' => '^1.2.0',
-        ] + $packages;
+        ]);
+        $this->updateSass($this->name);
+        $this->updateJavascript($this->name);
+        $this->updateAssets(['vendor' => $this->name]);
     }
 }
