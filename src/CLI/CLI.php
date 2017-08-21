@@ -38,9 +38,9 @@ class CLI
             'value' => 'tonik',
             'message' => '<comment>Theme Textdomain</comment> [tonik]',
         ],
-        'App\Theme' => [
-            'value' => 'App\Theme',
-            'message' => '<comment>Theme Namespace</comment> [App\Theme]',
+        'App\\Theme' => [
+            'value' => 'App\\Theme',
+            'message' => '<comment>Theme Namespace</comment> [App\\Theme]',
         ],
     ];
 
@@ -69,11 +69,11 @@ class CLI
         $this->drawBanner();
 
         $replacements = $this->askForReplacements();
-        $presset = $this->askForPreset();
+        $preset = $this->askForPreset();
 
         if ($this->askForConfirmation()) {
             $renamer->replace($replacements);
-            $scaffolder->build($presset);
+            $scaffolder->build($preset);
 
             $this->climate->backgroundLightGreen('Done. Cheers!');
         } else {
