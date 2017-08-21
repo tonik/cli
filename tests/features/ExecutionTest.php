@@ -4,7 +4,7 @@ use Tonik\CLI\CLI;
 use Tonik\CLI\Renaming\Placeholders;
 use Tonik\CLI\Scaffolding\Scaffolder;
 
-class CLITest extends PHPUnit_Framework_TestCase
+class ExecutionTest extends PHPUnit_Framework_TestCase
 {
     protected $answers = [
         '{{ theme.name }}' => 'Theme Name',

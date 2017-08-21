@@ -3,6 +3,7 @@
 namespace Tonik\CLI\Scaffolding;
 
 use League\CLImate\CLImate;
+use Tonik\CLI\Scaffolding\Presets\Foundation;
 
 class Scaffolder
 {
@@ -16,12 +17,17 @@ class Scaffolder
         $this->dir = $dir;
     }
 
-    public static function build($preset)
+    public function build($preset)
     {
         return $this->{$preset}();
     }
 
-    private function none()
+    protected function foundation()
+    {
+        return (new Foundation($this->dir))->scaffold();
+    }
+
+    protected function none()
     {
         //
     }

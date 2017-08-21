@@ -88,7 +88,7 @@ class CLI
      */
     public function drawBanner()
     {
-        $this->climate->addArt(__DIR__.'/art');
+        $this->climate->addArt(dirname(__DIR__).'/../art');
         $this->climate->draw('tonik');
     }
 
