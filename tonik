@@ -7,8 +7,8 @@ if (file_exists($composer = __DIR__ . '/../../autoload.php')) {
     $cli = new Tonik\CLI\CLI(new League\CLImate\CLImate);
 
     return $cli->run(
-        new Tonik\CLI\Renaming\Renamer(__DIR__),
-        new Tonik\CLI\Scaffolding\Scaffolder(__DIR__)
+        new Tonik\CLI\Renaming\Renamer(dirname(__DIR__, 3)),
+        new Tonik\CLI\Scaffolding\Scaffolder(dirname(__DIR__, 3))
     );
 }
 
