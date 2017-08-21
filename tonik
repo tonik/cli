@@ -1,13 +1,11 @@
 #!/usr/bin/env php
 <?php
 
-// if (file_exists($composer = __DIR__ . '/../../autoload.php')) {
-if (file_exists($composer = __DIR__ . '/vendor/autoload.php')) {
+if (file_exists($composer = __DIR__ . '/../../autoload.php')) {
     require $composer;
 
     $cli = new Tonik\CLI\CLI(new League\CLImate\CLImate);
 
-    // return $cli->run($shake->dir(dirname(dirname(dirname(__DIR__)))));
     return $cli->run(
         new Tonik\CLI\Renaming\Renamer(__DIR__),
         new Tonik\CLI\Scaffolding\Scaffolder(__DIR__)
