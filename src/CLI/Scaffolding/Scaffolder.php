@@ -4,6 +4,7 @@ namespace Tonik\CLI\Scaffolding;
 
 use League\CLImate\CLImate;
 use Tonik\CLI\Scaffolding\Presets\Bootstrap;
+use Tonik\CLI\Scaffolding\Presets\Bulma;
 use Tonik\CLI\Scaffolding\Presets\Foundation;
 
 class Scaffolder
@@ -47,5 +48,15 @@ class Scaffolder
     protected function bootstrap()
     {
         (new Bootstrap($this->dir))->scaffold();
+    }
+
+    /**
+     * Scaffolds boilerplate for Bulma CSS framework.
+     *
+     * @return void
+     */
+    protected function bulma()
+    {
+        (new Bulma($this->dir))->scaffold();
     }
 }
