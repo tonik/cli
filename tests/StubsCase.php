@@ -2,23 +2,28 @@
 
 class StubsCase extends PHPUnit_Framework_TestCase
 {
+    public $destination;
+
     protected function setUp()
     {
-        $this->fixturesDir = __DIR__.'/fixtures';
-        $this->tempDir = "{$this->fixturesDir}/.temp";
-        $this->stubsDir = dirname(__DIR__).'/src/CLI/Scaffolding/Presets/stubs';
-        $this->scaffoldingDir = "{$this->fixturesDir}/scaffolding";
+        $this->fixtures = __DIR__.'/fixtures';
+        $this->temp = "{$this->fixtures}/.temp";
+        $this->stubs = dirname(__DIR__).'/src/CLI/Scaffolding/Presets/stubs';
 
-        $dir = escapeshellarg($this->scaffoldingDir);
-        $temp = escapeshellarg($this->tempDir);
+        if (null === $this->destination) {
+            $this->destination = "{$this->fixtures}/scaffolding";
+        }
+
+        $dir = escapeshellarg($this->destination);
+        $temp = escapeshellarg($this->temp);
 
         exec("cp -R $dir $temp");
     }
 
     protected function tearDown()
     {
-        $dir = escapeshellarg($this->scaffoldingDir);
-        $temp = escapeshellarg($this->tempDir);
+        $dir = escapeshellarg($this->destination);
+        $temp = escapeshellarg($this->temp);
 
         exec("rm -rf $dir");
         exec("mv $temp $dir");

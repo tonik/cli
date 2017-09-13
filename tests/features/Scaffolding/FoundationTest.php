@@ -6,32 +6,32 @@ class FoundationTest extends StubsCase
 {
     public function test_updating_packages()
     {
-        (new Scaffolder($this->scaffoldingDir))->build('foundation');
+        (new Scaffolder($this->destination))->build('foundation');
 
-        $this->assertFileContains('foundation-sites', "{$this->scaffoldingDir}/package.json");
-        $this->assertFileContains('motion-ui', "{$this->scaffoldingDir}/package.json");
+        $this->assertFileContains('foundation-sites', "{$this->destination}/package.json");
+        $this->assertFileContains('motion-ui', "{$this->destination}/package.json");
     }
 
     public function test_updating_assets()
     {
-        (new Scaffolder($this->scaffoldingDir))->build('foundation');
+        (new Scaffolder($this->destination))->build('foundation');
 
-        $this->assertFileEquals("{$this->scaffoldingDir}/app/Http/assets.php", "{$this->stubsDir}/foundation/app/Http/assets.php");
+        $this->assertFileEquals("{$this->destination}/app/Http/assets.php", "{$this->stubs}/foundation/app/Http/assets.php");
     }
 
     public function test_scaffolding_files()
     {
-        $stubsAssets = "{$this->stubsDir}/foundation/resources/assets";
-        $scaffoldingAssets = "{$this->scaffoldingDir}/resources/assets";
+        $stub = "{$this->stubs}/foundation/resources/assets";
+        $assets = "{$this->destination}/resources/assets";
 
-        (new Scaffolder($this->scaffoldingDir))->build('foundation');
+        (new Scaffolder($this->destination))->build('foundation');
 
-        $this->assertFileEquals("{$scaffoldingAssets}/sass/_variables.scss", "{$stubsAssets}/sass/_variables.scss");
-        $this->assertFileEquals("{$scaffoldingAssets}/sass/_settings.scss", "{$stubsAssets}/sass/_settings.scss");
-        $this->assertFileEquals("{$scaffoldingAssets}/sass/foundation.scss", "{$stubsAssets}/sass/foundation.scss");
-        $this->assertFileEquals("{$scaffoldingAssets}/sass/app.scss", "{$stubsAssets}/sass/app.scss");
+        $this->assertFileEquals("{$assets}/sass/_variables.scss", "{$stub}/sass/_variables.scss");
+        $this->assertFileEquals("{$assets}/sass/_settings.scss", "{$stub}/sass/_settings.scss");
+        $this->assertFileEquals("{$assets}/sass/foundation.scss", "{$stub}/sass/foundation.scss");
+        $this->assertFileEquals("{$assets}/sass/app.scss", "{$stub}/sass/app.scss");
 
-        $this->assertFileEquals("{$scaffoldingAssets}/js/foundation.js", "{$stubsAssets}/js/foundation.js");
-        $this->assertFileEquals("{$scaffoldingAssets}/js/app.js", "{$stubsAssets}/js/app.js");
+        $this->assertFileEquals("{$assets}/js/foundation.js", "{$stub}/js/foundation.js");
+        $this->assertFileEquals("{$assets}/js/app.js", "{$stub}/js/app.js");
     }
 }
