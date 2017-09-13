@@ -6,6 +6,7 @@ use League\CLImate\CLImate;
 use Tonik\CLI\Scaffolding\Presets\Bootstrap;
 use Tonik\CLI\Scaffolding\Presets\Bulma;
 use Tonik\CLI\Scaffolding\Presets\Foundation;
+use Tonik\CLI\Scaffolding\Presets\Vue;
 
 class Scaffolder
 {
@@ -58,5 +59,15 @@ class Scaffolder
     protected function bulma()
     {
         (new Bulma($this->dir))->scaffold();
+    }
+
+    /**
+     * Scaffolds boilerplate for Vue.js framework.
+     *
+     * @return void
+     */
+    protected function vue()
+    {
+        (new Vue($this->dir))->scaffold();
     }
 }

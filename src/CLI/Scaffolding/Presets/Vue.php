@@ -4,24 +4,24 @@ namespace Tonik\CLI\Scaffolding\Presets;
 
 use Symfony\Component\Filesystem\Filesystem;
 
-class Bulma extends Preset
+class Vue extends Preset
 {
     /**
      * Preset name.
      *
      * @var string
      */
-    private $name = 'bulma';
+    private $name = 'vue';
 
     /**
-     * Scaffold a Bulma boilerplate preset.
+     * Scaffold a Vue boilerplate preset.
      *
      * @return void
      */
     public function scaffold()
     {
         $this->updatePackages([
-            "bulma" => "^0.5.1",
+            "vue" => "^2.4.3",
         ]);
         $this->updateSass($this->name);
         $this->updateJavascript($this->name);

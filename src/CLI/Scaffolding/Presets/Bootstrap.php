@@ -14,7 +14,7 @@ class Bootstrap extends Preset
     private $name = 'bootstrap';
 
     /**
-     * Scaffold a `bootstrap` boilerplate preset.
+     * Scaffold a Bootstrap boilerplate preset.
      *
      * @return void
      */
@@ -25,6 +25,6 @@ class Bootstrap extends Preset
         ]);
         $this->updateSass($this->name);
         $this->updateJavascript($this->name);
-        $this->updateAssets(['vendor' => $this->name]);
+        $this->updateAssets($this->name);
     }
 }

@@ -50,4 +50,21 @@ class FilesCloner
 
         $fs->mirror($this->source, $destination, null, $this->options);
     }
+
+    /**
+     * Perform source coping.
+     *
+     * @param  string $file
+     * @return void
+     */
+    public function copy($file)
+    {
+        $fs = new Filesystem;
+
+        if (! $fs->exists(dirname($file))) {
+            $fs->mkdir(dirname($file), 0755);
+        }
+
+        $fs->copy($this->source, $file, true);
+    }
 }

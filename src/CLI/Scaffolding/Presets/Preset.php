@@ -37,10 +37,10 @@ abstract class Preset implements PresetInterface
      */
     protected function updateSass($stub)
     {
-        $source = "{$this->stubsDir}/{$stub}/sass";
-        $desctination = "{$this->dir}/resources/assets/sass";
+        $source = "{$this->stubsDir}/{$stub}/resources/assets/sass";
+        $destination = "{$this->dir}/resources/assets/sass";
 
-        (new FilesCloner($source))->clone($desctination);
+        (new FilesCloner($source))->clone($destination);
     }
 
     /**
@@ -51,10 +51,24 @@ abstract class Preset implements PresetInterface
      */
     protected function updateJavascript($stub)
     {
-        $source = "{$this->stubsDir}/{$stub}/js";
-        $desctination = "{$this->dir}/resources/assets/js";
+        $source = "{$this->stubsDir}/{$stub}/resources/assets/js";
+        $destination = "{$this->dir}/resources/assets/js";
 
-        (new FilesCloner($source))->clone($desctination);
+        (new FilesCloner($source))->clone($destination);
+    }
+
+    /**
+     * Update arguments of enqueue functions to new ones.
+     *
+     * @param  array $replacements
+     * @return void
+     */
+    protected function updateAssets($stub)
+    {
+        $source = "{$this->stubsDir}/{$stub}/app/Http/assets.php";
+        $destination = "{$this->dir}/app/Http/assets.php";
+
+        (new FilesCloner($source))->copy($destination);
     }
 
     /**
@@ -65,16 +79,5 @@ abstract class Preset implements PresetInterface
     protected function updatePackages($dependencies)
     {
         (new PackagesAdder("{$this->dir}/package.json"))->add($dependencies);
-    }
-
-    /**
-     * Update arguments of enqueue functions to new ones.
-     *
-     * @param  array $replacements
-     * @return void
-     */
-    protected function updateAssets(array $replacements)
-    {
-        (new AssetsRenamer($this->dir))->replace($replacements);
     }
 }

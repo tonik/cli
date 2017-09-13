@@ -14,7 +14,7 @@ class Foundation extends Preset
     private $name = 'foundation';
 
     /**
-     * Scaffold a `foundation` boilerplate preset.
+     * Scaffold a Foundation boilerplate preset.
      *
      * @return void
      */
@@ -26,6 +26,6 @@ class Foundation extends Preset
         ]);
         $this->updateSass($this->name);
         $this->updateJavascript($this->name);
-        $this->updateAssets(['vendor' => $this->name]);
+        $this->updateAssets($this->name);
     }
 }
