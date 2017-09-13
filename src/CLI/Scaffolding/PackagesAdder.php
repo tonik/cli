@@ -2,6 +2,8 @@
 
 namespace Tonik\CLI\Scaffolding;
 
+use RuntimeException;
+
 class PackagesAdder
 {
     /**
@@ -30,7 +32,7 @@ class PackagesAdder
     public function add(array $dependencies)
     {
         if (! file_exists($this->file)) {
-            return;
+            throw new RuntimeException("Could not add dependencies, `package.json` file do not exists.");
         }
 
         $packages = json_decode(file_get_contents($this->file), true);
