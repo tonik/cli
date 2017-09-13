@@ -6,9 +6,10 @@ if (file_exists($composer = __DIR__ . '/../../autoload.php')) {
 
     $cli = new Tonik\CLI\CLI(new League\CLImate\CLImate);
 
-    $shake = new Tonik\CLI\Command\Shake(new Symfony\Component\Finder\Finder);
-
-    return $cli->run($shake->dir(dirname(dirname(dirname(__DIR__)))));
+    return $cli->run(
+        new Tonik\CLI\Renaming\Renamer(dirname(__DIR__, 3)),
+        new Tonik\CLI\Scaffolding\Scaffolder(dirname(__DIR__, 3))
+    );
 }
 
 throw new Exception("Please, install composer dependences before running CLI.");

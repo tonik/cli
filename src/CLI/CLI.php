@@ -3,32 +3,48 @@
 namespace Tonik\CLI;
 
 use League\CLImate\CLImate;
-use Tonik\CLI\Command\Shake;
+use Tonik\CLI\Renaming\Placeholders;
+use Tonik\CLI\Renaming\Renamer;
+use Tonik\CLI\Scaffolding\Scaffolder;
 
 class CLI
 {
-    /**
-     * List of answers.
-     *
-     * @var array
-     */
-    protected $answers = [];
-
-    /**
-     * List of questions.
-     *
-     * @var array
-     */
-    protected $questions = [
-        '{{ theme.name }}' => '<comment>Theme Name</comment> [<info>{{ theme.name }}</info>]',
-        '{{ theme.url }}' => '<comment>Theme URI</comment> [<info>{{ theme.url }}</info>]',
-        '{{ theme.description }}' => '<comment>Theme Description</comment> [<info>{{ theme.description }}</info>]',
-        '{{ theme.version }}' => '<comment>Theme Version</comment> [<info>{{ theme.version }}</info>]',
-        '{{ theme.author }}' => '<comment>Author</comment> [<info>{{ theme.author }}</info>]',
-        '{{ theme.author.url }}' => '<comment>Author URI</comment> [<info>{{ theme.author.url }}</info>]',
-        '{{ theme.textdomain }}' => '<comment>Theme Textdomain</comment> [<info>{{ theme.textdomain }}</info>]',
-        'App\Theme' => '<comment>Theme Namespace</comment> [<info>{{ App\Theme }}</info>]',
+    public $placeholders = [
+        '{{ theme.name }}' => [
+            'value' => 'Tonik Starter Theme',
+            'message' => '<comment>Theme Name</comment> [Tonik Starter Theme]',
+        ],
+        '{{ theme.url }}' => [
+            'value' => '//labs.tonik.pl/theme/',
+            'message' => '<comment>Theme URI</comment> [//labs.tonik.pl/theme/]',
+        ],
+        '{{ theme.description }}' => [
+            'value' => 'Enhance your WordPress theme development workflow',
+            'message' => '<comment>Theme Description</comment> [Enhance your WordPress theme development workflow]',
+        ],
+        '{{ theme.version }}' => [
+            'value' => '2.0.0',
+            'message' => '<comment>Theme Version</comment> [2.0.0]',
+        ],
+        '{{ theme.author }}' => [
+            'value' => 'Tonik',
+            'message' => '<comment>Author</comment> [Tonik]',
+        ],
+        '{{ theme.author.url }}' => [
+            'value' => '//tonik.pl/',
+            'message' => '<comment>Author URI</comment> [//tonik.pl/]',
+        ],
+        '{{ theme.textdomain }}' => [
+            'value' => 'tonik',
+            'message' => '<comment>Theme Textdomain</comment> [tonik]',
+        ],
+        'App\\Theme' => [
+            'value' => 'App\\Theme',
+            'message' => '<comment>Theme Namespace</comment> [App\\Theme]',
+        ],
     ];
+
+    public $presets = ['foundation', 'bootstrap', 'bulma', 'vue'];
 
     /**
      * Construct CLI.
@@ -37,15 +53,6 @@ class CLI
      */
     public function __construct(CLImate $climate) {
         $this->climate = $climate;
-
-        $climate->arguments->add([
-            'help' => [
-                'prefix' => 'h',
-                'longPrefix' => 'help',
-                'description' => 'Shake command help guide',
-                'noValue' => true,
-            ],
-        ]);
     }
 
     /**
@@ -55,20 +62,18 @@ class CLI
      *
      * @return void
      */
-    public function run(Shake $shake)
-    {
+    public function run(
+        Renamer $renamer,
+        Scaffolder $scaffolder
+    ) {
         $this->drawBanner();
 
-        $this->climate->arguments->parse();
-
-        if ($this->climate->arguments->defined('help')) {
-            return $this->climate->usage();
-        }
-
-        $this->askQuestions();
+        $replacements = $this->askForReplacements();
+        $preset = $this->askForPreset();
 
         if ($this->askForConfirmation()) {
-            $shake->rename($this->answers);
+            $scaffolder->build($preset);
+            $renamer->replace($replacements);
 
             $this->climate->backgroundLightGreen('Done. Cheers!');
         } else {
@@ -83,24 +88,37 @@ class CLI
      */
     public function drawBanner()
     {
-        $this->climate->addArt(__DIR__.'/art');
+        $this->climate->addArt(dirname(__DIR__).'/../art');
         $this->climate->draw('tonik');
     }
 
     /**
-     * Asks questions and saves answers.
+     * Asks placeholders and saves answers.
      *
      * @return void
      */
-    public function askQuestions()
+    public function askForReplacements()
     {
-        foreach ($this->questions as $placeholder => $message) {
-            $input = $this->climate->input($message);
+        $replacements = [];
 
-            $input->defaultTo($placeholder);
+        foreach ($this->placeholders as $placeholder => $data) {
+            $input = $this->climate->input($data['message']);
 
-            $this->answers[$placeholder] = $input->prompt();
+            $input->defaultTo($data['value']);
+
+            $replacements[$placeholder] = $input->prompt();
         }
+
+        return $replacements;
+    }
+
+    public function askForPreset()
+    {
+        $input = $this->climate->input('<comment>Choose the front-end scaffolding</comment>');
+
+        $input->accept($this->presets, true);
+
+        return strtolower($input->prompt());
     }
 
     /**
@@ -113,25 +131,5 @@ class CLI
         $input = $this->climate->confirm('Continue?');
 
         return $input->confirmed();
-    }
-
-    /**
-     * Gets the List of answers.
-     *
-     * @return array
-     */
-    public function getAnswers()
-    {
-        return $this->answers;
-    }
-
-    /**
-     * Gets the List of questions.
-     *
-     * @return array
-     */
-    public function getQuestions()
-    {
-        return $this->questions;
     }
 }
