@@ -72,8 +72,8 @@ class CLI
         $preset = $this->askForPreset();
 
         if ($this->askForConfirmation()) {
-            $renamer->replace($replacements);
             $scaffolder->build($preset);
+            $renamer->replace($replacements);
 
             $this->climate->backgroundLightGreen('Done. Cheers!');
         } else {
