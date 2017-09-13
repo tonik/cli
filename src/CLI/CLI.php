@@ -44,7 +44,7 @@ class CLI
         ],
     ];
 
-    public $presets = ['foundation', 'bootstrap', 'none'];
+    public $presets = ['foundation', 'bootstrap', 'bulma', 'vue'];
 
     /**
      * Construct CLI.
