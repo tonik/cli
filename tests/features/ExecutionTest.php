@@ -71,11 +71,11 @@ class ExecutionTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function ask_for_preset()
+    public function ask_for_preset($presetName)
     {
         $this->climate->shouldReceive('input')->once()->andReturn($this->input);
         $this->input->shouldReceive('accept')->once()->with($this->cli->presets, true)->andReturn($this->input);
-        $this->input->shouldReceive('prompt')->once()->withNoArgs()->andReturn('preset');
+        $this->input->shouldReceive('prompt')->once()->withNoArgs()->andReturn($presetName);
     }
 
     /**
@@ -83,11 +83,17 @@ class ExecutionTest extends PHPUnit_Framework_TestCase
      */
     public function test_asking_for_preset()
     {
-        $this->ask_for_preset();
+        $this->ask_for_preset('preset_name');
 
         $preset = $this->cli->askForPreset();
 
-        $this->assertEquals('preset', $preset);
+        $this->assertEquals('preset_name', $preset);
+    }
+
+    public function ask_for_a_scaffolding_confirmation_with_true_answer()
+    {
+        $this->climate->shouldReceive('confirm')->once()->andReturn($this->input);
+        $this->input->shouldReceive('confirmed')->once()->withNoArgs()->andReturn(true);
     }
 
     public function ask_for_a_confirmation_with_true_answer()
@@ -125,20 +131,41 @@ class ExecutionTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function test_proper_execution_run()
+    public function test_proper_execution_run_with_preset()
     {
         $renamer = Mockery::mock('Tonik\CLI\Renaming\Renamer');
         $scaffolder = Mockery::mock('Tonik\CLI\Scaffolding\Scaffolder');
 
         $this->draw_a_banner();
         $this->ask_for_replacements();
-        $this->ask_for_preset();
+        $this->ask_for_preset('preset_name');
         $this->ask_for_a_confirmation_with_true_answer();
 
         $this->climate->shouldReceive('backgroundLightGreen');
 
         $renamer->shouldReceive('replace')->once();
         $scaffolder->shouldReceive('build')->once();
+
+        $this->cli->run($renamer, $scaffolder);
+    }
+
+    /**
+     * @test
+     */
+    public function test_proper_execution_run_without_preset()
+    {
+        $renamer = Mockery::mock('Tonik\CLI\Renaming\Renamer');
+        $scaffolder = Mockery::mock('Tonik\CLI\Scaffolding\Scaffolder');
+
+        $this->draw_a_banner();
+        $this->ask_for_replacements();
+        $this->ask_for_preset('none');
+        $this->ask_for_a_confirmation_with_true_answer();
+
+        $this->climate->shouldReceive('backgroundLightGreen');
+
+        $renamer->shouldReceive('replace')->once();
+        $scaffolder->shouldReceive('build')->never();
 
         $this->cli->run($renamer, $scaffolder);
     }
@@ -153,7 +180,7 @@ class ExecutionTest extends PHPUnit_Framework_TestCase
 
         $this->draw_a_banner();
         $this->ask_for_replacements();
-        $this->ask_for_preset();
+        $this->ask_for_preset('preset_name');
         $this->ask_for_a_confirmation_with_false_answer();
 
         $this->climate->shouldReceive('backgroundRed');

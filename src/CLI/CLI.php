@@ -44,7 +44,7 @@ class CLI
         ],
     ];
 
-    public $presets = ['foundation', 'bootstrap', 'bulma', 'vue'];
+    public $presets = ['none', 'foundation', 'bootstrap', 'bulma', 'vue'];
 
     /**
      * Construct CLI.
@@ -72,7 +72,9 @@ class CLI
         $preset = $this->askForPreset();
 
         if ($this->askForConfirmation()) {
-            $scaffolder->build($preset);
+            if ($preset !== 'none') {
+                $scaffolder->build($preset);
+            }
             $renamer->replace($replacements);
 
             $this->climate->backgroundLightGreen('Done. Cheers!');
