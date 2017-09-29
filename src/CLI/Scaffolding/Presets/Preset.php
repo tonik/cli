@@ -6,6 +6,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Tonik\CLI\Renaming\Replacer;
 use Tonik\CLI\Scaffolding\AssetsRenamer;
+use Tonik\CLI\Scaffolding\ConfigAdder;
 use Tonik\CLI\Scaffolding\FilesCloner;
 use Tonik\CLI\Scaffolding\PackagesAdder;
 
@@ -79,5 +80,15 @@ abstract class Preset implements PresetInterface
     protected function updatePackages($dependencies)
     {
         (new PackagesAdder("{$this->dir}/package.json"))->add($dependencies);
+    }
+
+    /**
+     * Update the "app.json" file with additional assets.
+     *
+     * @return void
+     */
+    protected function updateConfig($assets)
+    {
+        (new ConfigAdder("{$this->dir}/config/app.json"))->add($assets);
     }
 }

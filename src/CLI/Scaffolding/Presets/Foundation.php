@@ -24,6 +24,12 @@ class Foundation extends Preset
             'foundation-sites' => '^6.3.0',
             'motion-ui' => '^1.2.0',
         ]);
+        $this->updateConfig([
+            'foundation' => [
+                './resources/assets/js/foundation.js',
+                './resources/assets/sass/foundation.scss',
+            ],
+        ]);
         $this->updateSass($this->name);
         $this->updateJavascript($this->name);
         $this->updateAssets($this->name);

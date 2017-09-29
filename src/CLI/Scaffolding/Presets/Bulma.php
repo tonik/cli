@@ -23,6 +23,11 @@ class Bulma extends Preset
         $this->updatePackages([
             "bulma" => "^0.5.1",
         ]);
+        $this->updateConfig([
+            'bulma' => [
+                './resources/assets/sass/bulma.scss',
+            ],
+        ]);
         $this->updateSass($this->name);
         $this->updateJavascript($this->name);
         $this->updateAssets($this->name);

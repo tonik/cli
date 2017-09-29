@@ -11,6 +11,15 @@ class BulmaTest extends StubsCase
         $this->assertFileContains('bulma', "{$this->destination}/package.json");
     }
 
+    public function test_updating_config()
+    {
+        (new Scaffolder($this->destination))->build('bulma');
+
+        $this->assertFileContains('"bulma": [
+            "./resources/assets/sass/bulma.scss"
+        ]', "{$this->destination}/config/app.json");
+    }
+
     public function test_updating_assets()
     {
         (new Scaffolder($this->destination))->build('bulma');

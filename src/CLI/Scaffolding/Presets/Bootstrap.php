@@ -23,6 +23,12 @@ class Bootstrap extends Preset
         $this->updatePackages([
             "bootstrap-sass" => "^3.3.7",
         ]);
+        $this->updateConfig([
+            'bootstrap' => [
+                './resources/assets/js/bootstrap.js',
+                './resources/assets/sass/bootstrap.scss',
+            ],
+        ]);
         $this->updateSass($this->name);
         $this->updateJavascript($this->name);
         $this->updateAssets($this->name);

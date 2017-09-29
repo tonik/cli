@@ -12,6 +12,16 @@ class FoundationTest extends StubsCase
         $this->assertFileContains('motion-ui', "{$this->destination}/package.json");
     }
 
+    public function test_updating_config()
+    {
+        (new Scaffolder($this->destination))->build('foundation');
+
+        $this->assertFileContains('"foundation": [
+            "./resources/assets/js/foundation.js",
+            "./resources/assets/sass/foundation.scss"
+        ]', "{$this->destination}/config/app.json");
+    }
+
     public function test_updating_assets()
     {
         (new Scaffolder($this->destination))->build('foundation');
