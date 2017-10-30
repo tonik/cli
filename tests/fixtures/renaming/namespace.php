@@ -1,3 +1,3 @@
 <?php
 
-namespace App\Theme\Rest\Of\Name;
+namespace Tonik\Theme\Rest\Of\Name;

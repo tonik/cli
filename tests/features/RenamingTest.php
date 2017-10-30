@@ -16,7 +16,7 @@ class RenamingTest extends StubsCase
         '{{ theme.author }}' => 'Author',
         '{{ theme.author.url }}' => 'Author Website',
         '{{ theme.textdomain }}' => 'Theme Textdomain',
-        'App\Theme' => 'My\\\\New\\\\Theme',
+        'Tonik\Theme' => 'My\\\\New\\\\Theme',
     ];
 
     protected function setUp()

@@ -14,7 +14,7 @@ class ExecutionTest extends PHPUnit_Framework_TestCase
         '{{ theme.author }}' => 'Author',
         '{{ theme.author.url }}' => 'Author Website',
         '{{ theme.textdomain }}' => 'Theme Textdomain',
-        'App\Theme' => 'Theme\New\Name',
+        'Tonik\Theme' => 'Theme\New\Name',
     ];
 
     public function setUp()
