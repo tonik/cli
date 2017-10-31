@@ -32,7 +32,7 @@ add_action('wp_enqueue_scripts', 'Tonik\Theme\App\Http\register_stylesheets');
  * @return void
  */
 function register_scripts() {
-    wp_enqueue_script('app', asset_path('js/app.js'), [], null, true);
+    wp_enqueue_script('app', asset_path('js/app.js'), ['jquery'], null, true);
 }
 add_action('wp_enqueue_scripts', 'Tonik\Theme\App\Http\register_scripts');
 
@@ -46,3 +46,18 @@ function register_editor_stylesheets() {
     add_editor_style(asset_path('css/app.css'));
 }
 add_action('admin_init', 'Tonik\Theme\App\Http\register_editor_stylesheets');
+
+/**
+ * Moves front-end jQuery script to the footer.
+ *
+ * @param  \WP_Scripts $wp_scripts
+ * @return void
+ */
+function move_jquery_to_the_footer($wp_scripts) {
+    if (! is_admin()) {
+        $wp_scripts->add_data('jquery', 'group', 1);
+        $wp_scripts->add_data('jquery-core', 'group', 1);
+        $wp_scripts->add_data('jquery-migrate', 'group', 1);
+    }
+}
+add_action('wp_default_scripts', 'Tonik\Theme\App\Http\move_jquery_to_the_footer');
