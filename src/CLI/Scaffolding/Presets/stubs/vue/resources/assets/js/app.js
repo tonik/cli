@@ -1,9 +1,8 @@
 import Vue from 'vue'
-import Example for './components/Example'
+import Example from './components/Example.vue'
+
+Vue.component('example', Example);
 
 new Vue({
-  el: '#app',
-  components: {
-    Example
-  }
+  el: '#app'
 })
