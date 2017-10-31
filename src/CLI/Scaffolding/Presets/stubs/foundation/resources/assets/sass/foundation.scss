@@ -1,10 +1,13 @@
 @charset 'utf-8';
 
+// Settings
+// =================================================
 // Before importing Foundation framework itself we will
 // overwrite its settings with out own variables.
-@import 'variables';
 @import 'settings';
 
+// Foundation
+// =================================================
 // Import Foundation framework and its dependences.
 @import '~foundation-sites/scss/foundation';
 @import '~motion-ui/src/motion-ui';
