@@ -38,9 +38,9 @@ class CLI
             'value' => 'tonik',
             'message' => '<comment>Theme Textdomain</comment> [tonik]',
         ],
-        'Tonik\\Theme' => [
-            'value' => 'Tonik\\Theme',
-            'message' => '<comment>Theme Namespace</comment> [Tonik\\Theme]',
+        'Tonik\Theme' => [
+            'value' => 'Tonik\\\\Theme',
+            'message' => '<comment>Theme Namespace</comment> [Tonik\Theme]',
         ],
     ];
 
