@@ -27,7 +27,6 @@ class Vue extends Preset
             "vue-loader" => "^13.3.0",
             "vue-template-compiler" => "^2.5.2",
         ]);
-        $this->updateSass($this->name);
         $this->updateJavascript($this->name);
         $this->updateAssets($this->name);
     }

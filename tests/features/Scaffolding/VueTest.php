@@ -27,9 +27,6 @@ class VueTest extends StubsCase
 
         (new Scaffolder($this->destination))->build('vue');
 
-        $this->assertFileEquals("{$assets}/sass/_variables.scss", "{$stub}/sass/_variables.scss");
-        $this->assertFileEquals("{$assets}/sass/app.scss", "{$stub}/sass/app.scss");
-
         $this->assertFileEquals("{$assets}/js/components/Example.vue", "{$stub}/js/components/Example.vue");
         $this->assertFileEquals("{$assets}/js/app.js", "{$stub}/js/app.js");
     }
