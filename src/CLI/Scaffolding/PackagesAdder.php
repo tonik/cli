@@ -29,7 +29,29 @@ class PackagesAdder
      * @param array $dependencies
      * @return void
      */
-    public function add(array $dependencies)
+    public function addDependencies(array $dependencies)
+    {
+        $this->add('dependencies', $dependencies);
+    }
+
+    /**
+     * Adds additional entries to the `devDependencies` option.
+     *
+     * @param array $dependencies
+     * @return void
+     */
+    public function addDevDependencies(array $dependencies)
+    {
+        $this->add('devDependencies', $dependencies);
+    }
+
+    /**
+     * Adds additional entries to the specifed option field.
+     *
+     * @param array $dependencies
+     * @return void
+     */
+    public function add($field, array $dependencies)
     {
         if (! file_exists($this->file)) {
             throw new RuntimeException("Could not add dependencies, `package.json` file do not exists.");
@@ -37,9 +59,9 @@ class PackagesAdder
 
         $packages = json_decode(file_get_contents($this->file), true);
 
-        $packages['dependencies'] = $dependencies + $packages['dependencies'];
+        $packages[$field] = $dependencies + $packages[$field];
 
-        ksort($packages['dependencies']);
+        ksort($packages[$field]);
 
         file_put_contents($this->file, json_encode($packages, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT).PHP_EOL);
     }

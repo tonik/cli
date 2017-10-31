@@ -20,8 +20,12 @@ class Vue extends Preset
      */
     public function scaffold()
     {
-        $this->updatePackages([
+        $this->updateDependencies([
             "vue" => "^2.4.3",
+        ]);
+        $this->updateDevDependencies([
+            "vue-loader" => "^13.3.0",
+            "vue-template-compiler" => "^2.5.2",
         ]);
         $this->updateSass($this->name);
         $this->updateJavascript($this->name);

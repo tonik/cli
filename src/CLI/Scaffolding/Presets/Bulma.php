@@ -20,7 +20,7 @@ class Bulma extends Preset
      */
     public function scaffold()
     {
-        $this->updatePackages([
+        $this->updateDependencies([
             "bulma" => "^0.5.1",
         ]);
         $this->updateConfig([

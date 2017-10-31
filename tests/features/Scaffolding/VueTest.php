@@ -9,6 +9,8 @@ class VueTest extends StubsCase
         (new Scaffolder($this->destination))->build('vue');
 
         $this->assertFileContains('vue', "{$this->destination}/package.json");
+        $this->assertFileContains('vue-loader', "{$this->destination}/package.json");
+        $this->assertFileContains('vue-template-compiler', "{$this->destination}/package.json");
     }
 
     public function test_updating_assets()

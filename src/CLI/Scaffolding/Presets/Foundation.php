@@ -20,7 +20,7 @@ class Foundation extends Preset
      */
     public function scaffold()
     {
-        $this->updatePackages([
+        $this->updateDependencies([
             'foundation-sites' => '^6.3.0',
             'motion-ui' => '^1.2.0',
         ]);

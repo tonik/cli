@@ -77,9 +77,19 @@ abstract class Preset implements PresetInterface
      *
      * @return void
      */
-    protected function updatePackages($dependencies)
+    protected function updateDependencies($packages)
     {
-        (new PackagesAdder("{$this->dir}/package.json"))->add($dependencies);
+        (new PackagesAdder("{$this->dir}/package.json"))->addDependencies($packages);
+    }
+
+    /**
+     * Update the "package.json" file with additional dependencies.
+     *
+     * @return void
+     */
+    protected function updateDevDependencies($packages)
+    {
+        (new PackagesAdder("{$this->dir}/package.json"))->addDevDependencies($packages);
     }
 
     /**

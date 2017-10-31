@@ -20,7 +20,7 @@ class Bootstrap extends Preset
      */
     public function scaffold()
     {
-        $this->updatePackages([
+        $this->updateDependencies([
             "bootstrap-sass" => "^3.3.7",
         ]);
         $this->updateConfig([
