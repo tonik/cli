@@ -68,6 +68,7 @@ class ExecutionTest extends PHPUnit_Framework_TestCase
 
         $replacements = $this->cli->askForReplacements();
 
+        $this->assertEquals('Tonik\\Theme', $this->cli->placeholders['Tonik\Theme']['value']);
         $this->assertEquals('My\\\\New\\\\Theme', $replacements['Tonik\Theme']);
     }
 
