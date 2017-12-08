@@ -6,16 +6,18 @@ use Tonik\CLI\Scaffolding\Scaffolder;
 
 class ExecutionTest extends PHPUnit_Framework_TestCase
 {
-    protected $answers = [
-        '{{ theme.name }}' => 'Theme Name',
-        '{{ theme.url }}' => 'Theme Website',
-        '{{ theme.description }}' => 'Theme Description',
-        '{{ theme.version }}' => 'Theme Version',
-        '{{ theme.author }}' => 'Author',
-        '{{ theme.author.url }}' => 'Author Website',
-        '{{ theme.textdomain }}' => 'Theme Textdomain',
-        'Tonik\Theme' => 'Theme\New\Name',
-    ];
+    public function answers() {
+        return [
+            '{{ theme.name }}' => 'Theme Name',
+            '{{ theme.url }}' => 'Theme URI',
+            '{{ theme.description }}' => 'Theme Description',
+            '{{ theme.version }}' => 'Theme Version',
+            '{{ theme.author }}' => 'Author',
+            '{{ theme.author.url }}' => 'Author Website',
+            '{{ theme.textdomain }}' => 'Theme Textdomain',
+            'Tonik\Theme' => 'My\New\Theme',
+        ];
+    }
 
     public function setUp()
     {
@@ -53,22 +55,20 @@ class ExecutionTest extends PHPUnit_Framework_TestCase
         foreach ($this->cli->placeholders as $placeholder => $data) {
             $this->climate->shouldReceive('input')->once()->with($data['message'])->andReturn($this->input);
             $this->input->shouldReceive('defaultTo')->once()->with($data['value'])->andReturn($this->input);
-            $this->input->shouldReceive('prompt')->once()->withNoArgs()->andReturn($this->answers[$placeholder]);
+            $this->input->shouldReceive('prompt')->once()->withNoArgs()->andReturn($this->answers()[$placeholder]);
         }
     }
 
     /**
      * @test
      */
-    public function test_asking_for_replacements()
+    public function test_additional_escaping_of_namespace_answer()
     {
         $this->ask_for_replacements();
 
         $replacements = $this->cli->askForReplacements();
 
-        foreach ($this->answers as $input => $value) {
-            $this->assertEquals($value, $replacements[$input]);
-        }
+        $this->assertEquals('My\\\\New\\\\Theme', $replacements['Tonik\Theme']);
     }
 
     public function ask_for_preset($presetName)
