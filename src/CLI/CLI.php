@@ -108,7 +108,7 @@ class CLI
 
             $input->defaultTo($data['value']);
 
-            $replacements[$placeholder] = $input->prompt();
+            $replacements[$placeholder] = addslashes($input->prompt());
         }
 
         return $replacements;
