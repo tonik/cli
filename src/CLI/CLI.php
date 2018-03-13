@@ -11,8 +11,8 @@ class CLI
 {
     public $placeholders = [
         '{{ theme.name }}' => [
-            'value' => 'Tonik Starter Theme',
-            'message' => '<comment>Theme Name</comment> [Tonik Starter Theme]',
+            'value' => 'Tonik WordPress Starter Theme',
+            'message' => '<comment>Theme Name</comment> [Tonik WordPress Starter Theme]',
         ],
         '{{ theme.url }}' => [
             'value' => '//labs.tonik.pl/theme/',
@@ -23,8 +23,8 @@ class CLI
             'message' => '<comment>Theme Description</comment> [Enhance your WordPress theme development workflow]',
         ],
         '{{ theme.version }}' => [
-            'value' => '2.0.0',
-            'message' => '<comment>Theme Version</comment> [2.0.0]',
+            'value' => '3.0.0',
+            'message' => '<comment>Theme Version</comment> [3.0.0]',
         ],
         '{{ theme.author }}' => [
             'value' => 'Tonik',
