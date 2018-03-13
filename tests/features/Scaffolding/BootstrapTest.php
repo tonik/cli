@@ -25,7 +25,7 @@ class BootstrapTest extends StubsCase
     {
         (new Scaffolder($this->destination))->build('bootstrap');
 
-        $this->assertFileEquals("{$this->destination}/app/Http/assets.php", "{$this->stubs}/bootstrap/app/Http/assets.php");
+        $this->assertFileEquals("{$this->destination}/src/Http/assets.php", "{$this->stubs}/bootstrap/src/Http/assets.php");
     }
 
     public function test_scaffolding_files()
