@@ -66,8 +66,8 @@ abstract class Preset implements PresetInterface
      */
     protected function updateAssets($stub)
     {
-        $source = "{$this->stubsDir}/{$stub}/app/Http/assets.php";
-        $destination = "{$this->dir}/app/Http/assets.php";
+        $source = "{$this->stubsDir}/{$stub}/src/Http/assets.php";
+        $destination = "{$this->dir}/src/Http/assets.php";
 
         (new FilesCloner($source))->copy($destination);
     }

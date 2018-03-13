@@ -17,7 +17,7 @@ class VueTest extends StubsCase
     {
         (new Scaffolder($this->destination))->build('vue');
 
-        $this->assertFileEquals("{$this->destination}/app/Http/assets.php", "{$this->stubs}/vue/app/Http/assets.php");
+        $this->assertFileEquals("{$this->destination}/src/Http/assets.php", "{$this->stubs}/vue/src/Http/assets.php");
     }
 
     public function test_scaffolding_files()
