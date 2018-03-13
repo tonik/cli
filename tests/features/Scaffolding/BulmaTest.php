@@ -24,7 +24,7 @@ class BulmaTest extends StubsCase
     {
         (new Scaffolder($this->destination))->build('bulma');
 
-        $this->assertFileEquals("{$this->destination}/src/Http/assets.php", "{$this->stubs}/bulma/src/Http/assets.php");
+        $this->assertFileEquals("{$this->destination}/app/Http/assets.php", "{$this->stubs}/bulma/app/Http/assets.php");
     }
 
     public function test_scaffolding_files()

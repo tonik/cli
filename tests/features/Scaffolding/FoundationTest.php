@@ -26,7 +26,7 @@ class FoundationTest extends StubsCase
     {
         (new Scaffolder($this->destination))->build('foundation');
 
-        $this->assertFileEquals("{$this->destination}/src/Http/assets.php", "{$this->stubs}/foundation/src/Http/assets.php");
+        $this->assertFileEquals("{$this->destination}/app/Http/assets.php", "{$this->stubs}/foundation/app/Http/assets.php");
     }
 
     public function test_scaffolding_files()
