@@ -9,6 +9,11 @@ use Tonik\CLI\Scaffolding\Scaffolder;
 
 class CLI
 {
+    /**
+     * Collection of general placeholders to ask.
+     *
+     * @var array
+     */
     public $placeholders = [
         '{{ theme.name }}' => [
             'value' => 'Tonik WordPress Starter Theme',
@@ -44,6 +49,23 @@ class CLI
         ],
     ];
 
+    /**
+     * Collection of child theme specific placeholders to ask.
+     *
+     * @var array
+     */
+    public $childPlaceholders = [
+        '{{ theme.parent }}' => [
+            'value' => 'theme',
+            'message' => '<comment>Name of the Parent Theme</comment> [theme]',
+        ],
+    ];
+
+    /**
+     * Collection of presets names.
+     *
+     * @var array
+     */
     public $presets = ['none', 'foundation', 'bootstrap', 'bulma', 'vue'];
 
     /**
@@ -68,13 +90,18 @@ class CLI
     ) {
         $this->drawBanner();
 
-        $replacements = $this->askForReplacements();
-        $preset = $this->askForPreset();
+        $child = $this->askForChildConfirmation();
+        $replacements = $this->askForReplacements($child);
+
+        if (! $child) {
+            $preset = $this->askForPreset();
+        }
 
         if ($this->askForConfirmation()) {
-            if ($preset !== 'none') {
+            if (isset($preset) && $preset !== 'none') {
                 $scaffolder->build($preset);
             }
+
             $renamer->replace($replacements);
 
             $this->climate->backgroundLightGreen('Done. Cheers!');
@@ -97,11 +124,17 @@ class CLI
     /**
      * Asks placeholders and saves answers.
      *
-     * @return void
+     * @param boolean child
+     *
+     * @return array
      */
-    public function askForReplacements()
+    public function askForReplacements($child)
     {
         $replacements = [];
+
+        if ($child) {
+            $this->placeholders = array_merge($this->placeholders, $this->childPlaceholders);
+        }
 
         foreach ($this->placeholders as $placeholder => $data) {
             $input = $this->climate->input($data['message']);
@@ -114,6 +147,11 @@ class CLI
         return $replacements;
     }
 
+    /**
+     * Asks for preset name which files will be generated.
+     *
+     * @return string
+     */
     public function askForPreset()
     {
         $input = $this->climate->input('<comment>Choose the front-end scaffolding</comment>');
@@ -121,6 +159,18 @@ class CLI
         $input->accept($this->presets, true);
 
         return strtolower($input->prompt());
+    }
+
+    /**
+     * Asks for preset name which files will be generated.
+     *
+     * @return string
+     */
+    public function askForChildConfirmation()
+    {
+        $input = $this->climate->confirm('Are we scaffolding a child theme?');
+
+        return $input->confirmed();
     }
 
     /**

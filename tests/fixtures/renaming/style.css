@@ -8,4 +8,5 @@ Author URI: {{ theme.author.url }}
 Text Domain: {{ theme.textdomain }}
 License: GPLv2 License
 License URI: https://wordpress.org/about/gpl/
+Template: {{ theme.parent }}
 */
