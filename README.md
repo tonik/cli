@@ -4,6 +4,10 @@
 
 ### Simple CLI for initiating themes based on [Tonik WordPress Starter Theme](https://github.com/tonik/tonik).
 
+### Documentation
+
+Comprehensive documentation is available at http://labs.tonik.pl/theme/
+
 ## Installing
 
 You can install package via Composer.
