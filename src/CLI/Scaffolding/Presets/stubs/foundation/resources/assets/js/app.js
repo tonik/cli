@@ -1,4 +1,1 @@
-import $ from 'jquery'
-
-// Lets init Foundation scripts.
-$(document).foundation();
+import $ from 'jquery';

@@ -21,8 +21,9 @@ class Foundation extends Preset
     public function scaffold()
     {
         $this->updateDependencies([
-            'foundation-sites' => '^6.3.0',
-            'motion-ui' => '^1.2.0',
+            'foundation-sites' => '^6.4.1',
+            'what-input' => '^4.1.3',
+            'motion-ui' => '^1.2.2',
         ]);
         $this->updateConfig([
             'foundation' => [
