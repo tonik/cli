@@ -4,4 +4,4 @@
  * This single line is all what we need.
  */
 
-require('bootstrap-sass');
+require('bootstrap');
