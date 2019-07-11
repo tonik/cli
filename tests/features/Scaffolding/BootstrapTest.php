@@ -8,7 +8,7 @@ class BootstrapTest extends StubsCase
     {
         (new Scaffolder($this->destination))->build('bootstrap');
 
-        $this->assertFileContains('bootstrap-sass', "{$this->destination}/package.json");
+        $this->assertFileContains('bootstrap', "{$this->destination}/package.json");
     }
 
     public function test_updating_config()
