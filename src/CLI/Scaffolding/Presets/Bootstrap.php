@@ -21,7 +21,9 @@ class Bootstrap extends Preset
     public function scaffold()
     {
         $this->updateDependencies([
-            "bootstrap-sass" => "^3.3.7",
+            "bootstrap" => "^4.3.1",
+            "jquery"  => "^1.9.1",
+            "popper.js" => "^1.15.0"
         ]);
         $this->updateConfig([
             'bootstrap' => [
